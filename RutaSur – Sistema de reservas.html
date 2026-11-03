@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RutaSur – Pasajes en micro, hoteles y promociones</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light;--bg:#f4f7fb;--surface:#fff;--text:#14213d;--muted:#5b6785;--line:#e1e7f0;--primary:#0b3d91;--primary2:#1565d8;--accent:#ff7a1a;--ok:#13a05a;--hero1:#082a66;--hero2:#1565d8;--shadow:0 10px 30px rgba(10,40,100,.12);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0c1426;--surface:#141f38;--text:#e9eefb;--muted:#9aa8c9;--line:#26355a;--primary:#6aa3ff;--primary2:#3b82f6;--hero1:#06173a;--hero2:#0f3f95;--shadow:0 10px 30px rgba(0,0,0,.4)}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0c1426;--surface:#141f38;--text:#e9eefb;--muted:#9aa8c9;--line:#26355a;--primary:#6aa3ff;--primary2:#3b82f6;--hero1:#06173a;--hero2:#0f3f95;--shadow:0 10px 30px rgba(0,0,0,.4)}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 70px);height:100%}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Outfit',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--surface);z-index:60}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--surface);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:22px;color:var(--primary);text-decoration:none}
+.logo b{color:var(--accent)}
+.logo svg{width:34px;height:34px}
+nav ul{display:flex;gap:24px;list-style:none;margin:0;padding:0}
+nav a{color:var(--text);text-decoration:none;font-weight:500;font-size:15px}
+nav a:hover{color:var(--accent)}
+.btn{border:0;cursor:pointer;font:inherit;font-weight:600;border-radius:10px;padding:11px 20px;background:var(--accent);color:#fff;transition:.15s}
+.btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.btn.sec{background:transparent;color:var(--primary);border:1.5px solid var(--primary)}
+.hero{background:linear-gradient(135deg,var(--hero1),var(--hero2));color:#fff;padding:56px 0 110px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-120px;top:-80px;width:460px;height:460px;border-radius:50%;background:radial-gradient(circle,rgba(255,122,26,.35),transparent 70%)}
+.hero h1{font-size:clamp(30px,5vw,52px);line-height:1.1;margin:0 0 12px;font-weight:800;max-width:700px}
+.hero p{font-size:18px;opacity:.9;max-width:560px;margin:0}
+.road{position:absolute;left:0;right:0;bottom:0;height:8px;background:repeating-linear-gradient(90deg,#fff 0 28px,transparent 28px 56px);opacity:.25}
+.search{background:var(--surface);color:var(--text);border-radius:18px;box-shadow:var(--shadow);padding:20px;margin-top:-76px;position:relative;z-index:5}
+.tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.tab{border:0;background:var(--bg);color:var(--muted);font:inherit;font-weight:600;padding:9px 18px;border-radius:999px;cursor:pointer}
+.tab.on{background:var(--primary);color:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tab.on{color:#06173a}}
+.form{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;align-items:end}
+label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em}
+select,input{width:100%;font:inherit;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);color:var(--text)}
+select:focus,input:focus{outline:2px solid var(--primary2);border-color:transparent}
+.panel{display:none}.panel.on{display:block}
+section{padding:56px 0}
+h2{font-size:30px;margin:0 0 6px;font-weight:700}
+.sub{color:var(--muted);margin:0 0 28px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(10,40,100,.05)}
+.promo .img,.dest .img{height:150px;display:flex;align-items:flex-end;padding:14px;color:#fff;font-weight:700;font-size:20px;position:relative}
+.badge{position:absolute;top:12px;right:12px;background:var(--accent);color:#fff;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px}
+.card .body{padding:16px}
+.card .body p{margin:0 0 12px;color:var(--muted);font-size:14px}
+.price{font-size:22px;font-weight:800;color:var(--primary)}
+.price small{font-size:12px;color:var(--muted);font-weight:500}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+#results{display:none;padding-top:40px}
+.svc{display:grid;grid-template-columns:1.4fr 1fr auto;gap:16px;align-items:center;padding:18px 20px;margin-bottom:12px}
+.times{display:flex;align-items:center;gap:14px;font-weight:700;font-size:22px}
+.times span small{display:block;font-size:12px;color:var(--muted);font-weight:500}
+.line{flex:1;height:2px;background:var(--line);position:relative;min-width:40px;text-align:center}
+.line i{position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-style:normal;font-size:12px;color:var(--muted);background:var(--surface);padding:0 6px;white-space:nowrap}
+.tag{display:inline-block;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:2px 8px;font-size:12px;margin:2px 4px 0 0;color:var(--muted)}
+.hotel{display:grid;grid-template-columns:140px 1fr auto;gap:16px;align-items:center;padding:14px;margin-bottom:12px}
+.hotel .ph{height:100px;border-radius:12px}
+.stars{color:var(--accent);letter-spacing:2px}
+.benefits{background:var(--surface);border-block:1px solid var(--line)}
+.benefits .grid{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.ben{text-align:center;padding:10px}
+.ben .ic{font-size:34px}
+.ben h3{margin:6px 0 4px;font-size:17px}.ben p{margin:0;color:var(--muted);font-size:14px}
+footer{background:var(--hero1);color:#cdd9f5;padding:40px 0 24px;font-size:14px}
+footer .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px}
+footer h4{color:#fff;margin:0 0 8px}footer p{margin:2px 0}
+.copy{border-top:1px solid rgba(255,255,255,.15);margin-top:24px;padding-top:16px;text-align:center;font-size:12px}
+.modal{position:fixed;inset:0;background:rgba(5,15,40,.6);display:none;align-items:center;justify-content:center;z-index:100;padding:16px}
+.modal.on{display:flex}
+.box{background:var(--surface);border-radius:18px;max-width:680px;width:100%;max-height:92vh;overflow:auto;padding:24px;box-shadow:var(--shadow)}
+.box h3{margin:0 0 4px;font-size:22px}
+.bus{display:grid;grid-template-columns:repeat(5,38px);gap:8px;justify-content:center;margin:14px 0;padding:16px;background:var(--bg);border-radius:14px}
+.seat{height:38px;border-radius:8px;border:1.5px solid var(--primary2);background:var(--surface);color:var(--text);font:600 12px 'Outfit',sans-serif;cursor:pointer}
+.seat.busy{background:var(--line);border-color:var(--line);color:var(--muted);cursor:not-allowed}
+.seat.sel{background:var(--accent);border-color:var(--accent);color:#fff}
+.gap{visibility:hidden}
+.legend{display:flex;gap:16px;justify-content:center;font-size:12px;color:var(--muted)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.sum{background:var(--bg);border-radius:12px;padding:14px;margin:14px 0;font-size:14px}
+.sum .row{padding:3px 0}.sum .tot{font-size:18px;font-weight:800;border-top:1px dashed var(--line);margin-top:6px;padding-top:8px}
+.ok{text-align:center}.ok .check{width:70px;height:70px;border-radius:50%;background:var(--ok);color:#fff;font-size:38px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+.code{font-size:28px;font-weight:800;letter-spacing:.08em;color:var(--primary);background:var(--bg);border-radius:12px;padding:10px;margin:12px 0}
+@media(max-width:760px){nav ul{display:none}.svc{grid-template-columns:1fr}.hotel{grid-template-columns:1fr}.hotel .ph{height:120px}.two{grid-template-columns:1fr}.hero{padding-bottom:100px}}
+</style>
+</head>
+<body>
+
+<header>
+<div class="wrap nav">
+  <a class="logo" href="#inicio" aria-label="RutaSur">
+    <svg viewBox="0 0 40 40" fill="none"><rect x="3" y="7" width="34" height="22" rx="6" fill="#1565d8"/><rect x="7" y="11" width="9" height="8" rx="2" fill="#fff"/><rect x="18" y="11" width="9" height="8" rx="2" fill="#fff"/><rect x="29" y="11" width="5" height="8" rx="2" fill="#ff7a1a"/><circle cx="12" cy="31" r="4" fill="#14213d" stroke="#fff" stroke-width="1.5"/><circle cx="28" cy="31" r="4" fill="#14213d" stroke="#fff" stroke-width="1.5"/></svg>
+    Ruta<b>Sur</b>
+  </a>
+  <nav><ul>
+    <li><a href="#inicio">Pasajes</a></li><li><a href="#promos">Promociones</a></li><li><a href="#destinos">Destinos</a></li><li><a href="#beneficios">Servicios</a></li><li><a href="#contacto">Contacto</a></li>
+  </ul></nav>
+  <button class="btn sec" onclick="misReservas()">Mis reservas</button>
+</div>
+</header>
+
+<main id="inicio">
+<div class="hero">
+  <div class="wrap">
+    <h1>Recorré la Argentina con comodidad y al mejor precio</h1>
+    <p>Pasajes en micro de larga distancia, hoteles y paquetes a más de 40 destinos del país.</p>
+  </div>
+  <div class="road"></div>
+</div>
+
+<div class="wrap">
+  <div class="search">
+    <div class="tabs">
+      <button class="tab on" data-p="p1">🚌 Pasajes</button>
+      <button class="tab" data-p="p2">🏨 Hoteles</button>
+      <button class="tab" data-p="p3">🎁 Paquetes</button>
+    </div>
+
+    <div class="panel on" id="p1"><div class="form">
+      <div><label for="o">Origen</label><select id="o"></select></div>
+      <div><label for="d">Destino</label><select id="d"></select></div>
+      <div><label for="f1">Fecha de ida</label><input type="date" id="f1"></div>
+      <div><label for="f2">Vuelta (opcional)</label><input type="date" id="f2"></div>
+      <div><label for="px">Pasajeros</label><select id="px"><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
+      <button class="btn" onclick="buscarPasajes()">Buscar pasajes</button>
+    </div></div>
+
+    <div class="panel" id="p2"><div class="form">
+      <div><label for="hd">Ciudad</label><select id="hd"></select></div>
+      <div><label for="h1">Check-in</label><input type="date" id="h1"></div>
+      <div><label for="h2">Check-out</label><input type="date" id="h2"></div>
+      <div><label for="hg">Huéspedes</label><select id="hg"><option>1</option><option selected>2</option><option>3</option><option>4</option></select></div>
+      <button class="btn" onclick="buscarHoteles()">Buscar hoteles</button>
+    </div></div>
+
+    <div class="panel" id="p3"><div class="form">
+      <div><label for="pd">Destino</label><select id="pd"></select></div>
+      <div><label for="pf">Salida</label><input type="date" id="pf"></div>
+      <div><label for="pn">Noches</label><select id="pn"><option>3</option><option>5</option><option>7</option></select></div>
+      <button class="btn" onclick="armarPaquete()">Ver paquete (pasaje + hotel)</button>
+    </div></div>
+  </div>
+</div>
+
+<section id="results"><div class="wrap">
+  <h2 id="rt"></h2><p class="sub" id="rs"></p>
+  <div id="rl"></div>
+</div></section>
+
+<section id="promos"><div class="wrap">
+  <h2>Promociones destacadas</h2><p class="sub">Aprovechá las ofertas de la temporada. Cupos limitados.</p>
+  <div class="grid" id="pg"></div>
+</div></section>
+
+<section id="destinos" style="padding-top:0"><div class="wrap">
+  <h2>Destinos más elegidos</h2><p class="sub">Desde la Patagonia hasta el Norte, viajá a donde quieras.</p>
+  <div class="grid" id="dg"></div>
+</div></section>
+
+<div class="benefits" id="beneficios"><section><div class="wrap"><div class="grid">
+  <div class="ben"><div class="ic">💺</div><h3>Coche cama y semicama</h3><p>Butacas amplias, aire acondicionado y WiFi a bordo.</p></div>
+  <div class="ben"><div class="ic">💳</div><h3>Hasta 12 cuotas</h3><p>Pagá con tarjeta, transferencia o billeteras virtuales.</p></div>
+  <div class="ben"><div class="ic">🔒</div><h3>Compra segura</h3><p>Tus datos protegidos y confirmación inmediata por mail.</p></div>
+  <div class="ben"><div class="ic">🕐</div><h3>Atención 24 hs</h3><p>Asistencia durante todo tu viaje, en cualquier momento.</p></div>
+</div></div></section></div>
+</main>
+
+<footer id="contacto"><div class="wrap">
+  <div class="cols">
+    <div><h4>RutaSur</h4><p>Agencia de viajes y turismo.</p><p>Legajo EVT N.º 00000 (ficticio)</p></div>
+    <div><h4>Contacto</h4><p>📞 0800-555-RUTA (7882)</p><p>✉️ info@rutasur.com.ar</p><p>📍 Av. Hipólito Yrigoyen 1234, Lomas de Zamora</p></div>
+    <div><h4>Medios de pago</h4><p>Visa · Mastercard · Mercado Pago · Transferencia</p></div>
+  </div>
+  <div class="copy">Prototipo con fines académicos · RutaSur es una empresa ficticia · Los precios y horarios son simulados.</div>
+</div></footer>
+
+<div class="modal" id="m"><div class="box" id="mb"></div></div>
+
+<script>
+const $=id=>document.getElementById(id);
+const CIUDADES={"Buenos Aires":0,"Rosario":4,"Mar del Plata":6,"Córdoba":9,"Mendoza":14,"San Luis":11,"Tucumán":15,"Salta":20,"Puerto Iguazú":18,"Bariloche":21,"Neuquén":13,"Mar de Ajó":5};
+const GRAD=["linear-gradient(135deg,#0b3d91,#1fa2c9)","linear-gradient(135deg,#c2410c,#f59e0b)","linear-gradient(135deg,#0f766e,#65a30d)","linear-gradient(135deg,#6d28d9,#ec4899)"];
+const PROMOS=[
+ {t:"Bariloche Nieve",c:"Bariloche",off:25,txt:"Pasaje + 5 noches con desayuno",p:289000},
+ {t:"Cataratas del Iguazú",c:"Puerto Iguazú",off:20,txt:"Pasaje cama + 3 noches + excursión",p:215000},
+ {t:"Fin de semana en Mar del Plata",c:"Mar del Plata",off:15,txt:"Pasaje + 2 noches frente al mar",p:98000},
+ {t:"Norte Mágico",c:"Salta",off:30,txt:"Pasaje cama suite + 4 noches",p:259000}];
+const HOTELES={ "Bariloche":["Hotel Nevados|4|78000","Cabañas del Lago|3|52000","Alto Patagonia|5|120000"],
+"Mar del Plata":["Hotel Costa Atlántica|4|55000","Residencial La Perla|3|34000"],
+"Mendoza":["Posada del Viñedo|4|62000","Hotel Cordillera|3|41000"],
+"Salta":["Hotel Casona Colonial|4|58000","Hostal del Norte|3|33000"],
+"Puerto Iguazú":["Selva Lodge|4|70000","Hotel Tres Fronteras|3|45000"],
+"Córdoba":["Hotel Sierras|4|50000","Hostal Cañada|3|30000"]};
+const SERV=[["Semicama",1,["WiFi","Aire acond.","Butaca 140°"]],["Cama",1.35,["WiFi","Butaca 160°","Cena a bordo"]],["Cama suite",1.7,["WiFi","Butaca 180°","Cena + bebida","Tomacorriente"]]];
+const money=n=>"$"+Math.round(n).toLocaleString("es-AR");
+const hoy=new Date();const iso=d=>d.toISOString().slice(0,10);
+function opts(sel,list,def){$(sel).innerHTML=list.map(c=>`<option ${c===def?"selected":""}>${c}</option>`).join("")}
+opts("o",Object.keys(CIUDADES),"Buenos Aires");opts("d",Object.keys(CIUDADES),"Bariloche");
+opts("hd",Object.keys(HOTELES),"Bariloche");opts("pd",Object.keys(HOTELES),"Bariloche");
+["f1","f2","h1","h2","pf"].forEach(i=>$(i).min=iso(hoy));
+const mas=n=>iso(new Date(hoy.getTime()+n*864e5));
+$("f1").value=mas(7);$("h1").value=mas(7);$("h2").value=mas(10);$("pf").value=mas(14);
+document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.remove("on"));document.querySelectorAll(".panel").forEach(x=>x.classList.remove("on"));t.classList.add("on");$(t.dataset.p).classList.add("on")});
+$("pg").innerHTML=PROMOS.map((p,i)=>`<div class="card promo"><div class="img" style="background:${GRAD[i]}"><span class="badge">-${p.off}%</span>${p.t}</div><div class="body"><p>${p.txt}</p><div class="row"><div class="price"><small>desde</small><br>${money(p.p)}</div><button class="btn" onclick="irPromo(${i})">Reservar</button></div></div></div>`).join("");
+$("dg").innerHTML=["Bariloche","Mendoza","Salta","Puerto Iguazú"].map((c,i)=>{const b=2800*CIUDADES[c]+20000;return `<div class="card dest"><div class="img" style="background:${GRAD[(i+2)%4]}">${c}</div><div class="body"><div class="row"><div class="price"><small>pasajes desde</small><br>${money(b)}</div><button class="btn sec" onclick="irDest('${c}')">Ver</button></div></div></div>`}).join("");
+
+function show(t,s){$("results").style.display="block";$("rt").textContent=t;$("rs").textContent=s;$("results").scrollIntoView()}
+function fmt(f){return new Date(f+"T12:00").toLocaleDateString("es-AR",{weekday:"long",day:"numeric",month:"long"})}
+function dur(o,d){const h=Math.abs(CIUDADES[o]-CIUDADES[d])||3;return Math.max(h,2)}
+function buscarPasajes(){
+  const o=$("o").value,d=$("d").value,f=$("f1").value,n=+$("px").value;
+  if(o===d)return alert("El origen y el destino deben ser distintos.");
+  if(!f)return alert("Elegí una fecha de ida.");
+  const h=dur(o,d),base=3000*h+15000,salidas=[6,13,20,23];
+  show(`${o} → ${d}`,`${fmt(f)} · ${n} pasajero(s)${$("f2").value?" · Vuelta "+fmt($("f2").value):""}`);
+  $("rl").innerHTML=salidas.map((s,i)=>{const sv=SERV[i%3],ll=(s+h)%24,dia=s+h>=24?" (+1)":"",pr=base*sv[1];
+    return `<div class="card svc"><div class="times"><span>${String(s).padStart(2,"0")}:00<small>${o}</small></span><div class="line"><i>${h} h</i></div><span>${String(ll).padStart(2,"0")}:30${dia}<small>${d}</small></span></div>
+    <div><b>${sv[0]}</b><br>${sv[2].map(x=>`<span class="tag">${x}</span>`).join("")}</div>
+    <div style="text-align:right"><div class="price">${money(pr)}<small> / pers.</small></div><button class="btn" style="margin-top:6px" onclick="elegirAsiento('${o}','${d}','${f}','${String(s).padStart(2,"0")}:00','${sv[0]}',${pr},${n})">Elegir</button></div></div>`}).join("");
+}
+function buscarHoteles(){
+  const c=$("hd").value,a=$("h1").value,b=$("h2").value,g=+$("hg").value;
+  const noches=Math.round((new Date(b)-new Date(a))/864e5);
+  if(!a||!b||noches<1)return alert("Revisá las fechas: el check-out debe ser posterior al check-in.");
+  show(`Hoteles en ${c}`,`${noches} noche(s) · ${g} huésped(es) · ${fmt(a)}`);
+  $("rl").innerHTML=HOTELES[c].map((x,i)=>{const [n,e,p]=x.split("|");return `<div class="card hotel"><div class="ph" style="background:${GRAD[i%4]}"></div><div><b style="font-size:18px">${n}</b><div class="stars">${"★".repeat(e)}</div><span class="tag">Desayuno</span><span class="tag">WiFi</span><span class="tag">Cancelación gratis</span></div><div style="text-align:right"><div class="price">${money(p*noches)}<small> total</small></div><small style="color:var(--muted)">${money(p)} por noche</small><br><button class="btn" style="margin-top:6px" onclick="datosHotel('${n}','${c}',${p*noches},${noches})">Reservar</button></div></div>`}).join("");
+}
+function armarPaquete(){const c=$("pd").value,n=+$("pn").value,f=$("pf").value;
+  const pas=(3000*dur("Buenos Aires",c)+15000)*1.35*2,h=+HOTELES[c][0].split("|")[2]*n,tot=(pas+h)*.85;
+  show(`Paquete a ${c}`,`${n} noches · salida ${fmt(f)} · 15% OFF aplicado`);
+  $("rl").innerHTML=`<div class="card svc"><div><b style="font-size:18px">Pasaje cama ida y vuelta + ${n} noches</b><br><span class="tag">Hotel ${HOTELES[c][0].split("|")[0]}</span><span class="tag">Traslados</span><span class="tag">Asistencia al viajero</span></div><div></div><div style="text-align:right"><div class="price">${money(tot)}<small> / pers.</small></div><button class="btn" style="margin-top:6px" onclick="datosHotel('Paquete a ${c} (${n} noches)','${c}',${tot},${n})">Reservar</button></div></div>`}
+function irPromo(i){const p=PROMOS[i];$("d").value=p.c;$("pd").value=HOTELES[p.c]?p.c:$("pd").value;armarPaquete();}
+function irDest(c){document.querySelector('[data-p="p1"]').click();$("d").value=c;scrollTo({top:0});buscarPasajes()}
+
+const modal=h=>{$("mb").innerHTML=h;$("m").classList.add("on")};
+const cerrar=()=>$("m").classList.remove("on");
+$("m").onclick=e=>{if(e.target.id==="m")cerrar()};
+let R={};
+function elegirAsiento(o,d,f,hr,sv,pr,n){
+  R={o,d,f,hr,sv,pr,n,seats:[],tipo:"pasaje"};
+  const busy=new Set();while(busy.size<14)busy.add(1+Math.floor(Math.random()*40));
+  let g="";for(let i=1;i<=40;i++){g+=`<button class="seat ${busy.has(i)?"busy":""}" ${busy.has(i)?"disabled":""} onclick="tog(this,${i})">${i}</button>`;if(i%4===2)g+=`<span class="gap"></span>`}
+  modal(`<h3>Elegí tus asientos</h3><p class="sub" style="margin:0">${o} → ${d} · ${hr} hs · ${sv} · Seleccioná ${n} asiento(s)</p>
+  <div class="bus">${g}</div><div class="legend"><span>⬜ Libre</span><span style="color:var(--accent)">🟧 Elegido</span><span>▫️ Ocupado</span></div>
+  <div class="row" style="margin-top:16px"><button class="btn sec" onclick="cerrar()">Cancelar</button><button class="btn" onclick="sigAsiento()">Continuar</button></div>`);
+}
+function tog(b,i){const k=R.seats.indexOf(i);if(k>-1){R.seats.splice(k,1);b.classList.remove("sel")}else if(R.seats.length<R.n){R.seats.push(i);b.classList.add("sel")}}
+function sigAsiento(){if(R.seats.length<R.n)return alert(`Seleccioná ${R.n} asiento(s).`);datos()}
+function datosHotel(n,c,tot,noches){R={tipo:"hotel",nombre:n,total:tot,noches,c};datos()}
+function datos(){
+  const tot=R.tipo==="hotel"?R.total:R.pr*R.n;R.total=tot;
+  const det=R.tipo==="hotel"?`<div class="row"><span>${R.nombre}</span><span>${R.noches} noche(s)</span></div>`:`<div class="row"><span>${R.o} → ${R.d}</span><span>${R.hr} hs</span></div><div class="row"><span>${R.sv}</span><span>Asientos: ${R.seats.sort((a,b)=>a-b).join(", ")}</span></div>`;
+  modal(`<h3>Datos del pasajero</h3><div class="two"><div><label>Nombre y apellido</label><input id="nm" placeholder="Ej: Juan Pérez"></div><div><label>DNI</label><input id="dn" inputmode="numeric" placeholder="12345678"></div><div><label>Email</label><input id="em" type="email" placeholder="correo@mail.com"></div><div><label>Medio de pago</label><select id="mp"><option>Tarjeta de crédito (hasta 12 cuotas)</option><option>Tarjeta de débito</option><option>Mercado Pago</option><option>Transferencia</option></select></div></div>
+  <div class="sum">${det}<div class="row tot"><span>Total</span><span>${money(tot)}</span></div></div>
+  <div class="row"><button class="btn sec" onclick="cerrar()">Cancelar</button><button class="btn" onclick="confirmar()">Confirmar reserva</button></div>`);
+}
+function confirmar(){
+  const nm=$("nm").value.trim(),dn=$("dn").value.trim(),em=$("em").value.trim();
+  if(!nm||!/^\d{7,8}$/.test(dn)||!/\S+@\S+\.\S+/.test(em))return alert("Completá nombre, DNI (7 u 8 dígitos) y un email válido.");
+  const code="RS-"+Math.random().toString(36).slice(2,8).toUpperCase();
+  const r={code,nm,desc:R.tipo==="hotel"?R.nombre:`${R.o} → ${R.d} (${R.f})`,total:R.total};
+  (window._res=window._res||[]).push(r);
+  modal(`<div class="ok"><div class="check">✓</div><h3>¡Reserva confirmada!</h3><p class="sub">Enviamos el comprobante a ${em}</p><div class="code">${code}</div><p>${r.desc}<br>Pasajero: ${nm} · Total: <b>${money(r.total)}</b></p><button class="btn" onclick="cerrar()">Volver al inicio</button></div>`);
+}
+function misReservas(){const l=window._res||[];
+  modal(`<h3>Mis reservas</h3><p class="sub">${l.length?"Reservas realizadas en esta sesión.":"Todavía no realizaste ninguna reserva."}</p>${l.map(r=>`<div class="sum"><div class="row"><b>${r.code}</b><span>${money(r.total)}</span></div><div>${r.desc} · ${r.nm}</div></div>`).join("")}<button class="btn" onclick="cerrar()">Cerrar</button>`)}
+</script>
+</body>
+</html>
