@@ -1,274 +1,282 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>RutaSur – Pasajes en micro, hoteles y promociones</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RutaSur · Maqueta frontend</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{color-scheme:light;--bg:#f4f7fb;--surface:#fff;--text:#14213d;--muted:#5b6785;--line:#e1e7f0;--primary:#0b3d91;--primary2:#1565d8;--accent:#ff7a1a;--ok:#13a05a;--hero1:#082a66;--hero2:#1565d8;--shadow:0 10px 30px rgba(10,40,100,.12);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0c1426;--surface:#141f38;--text:#e9eefb;--muted:#9aa8c9;--line:#26355a;--primary:#6aa3ff;--primary2:#3b82f6;--hero1:#06173a;--hero2:#0f3f95;--shadow:0 10px 30px rgba(0,0,0,.4)}}
-:root[data-theme="dark"]{color-scheme:dark;--bg:#0c1426;--surface:#141f38;--text:#e9eefb;--muted:#9aa8c9;--line:#26355a;--primary:#6aa3ff;--primary2:#3b82f6;--hero1:#06173a;--hero2:#0f3f95;--shadow:0 10px 30px rgba(0,0,0,.4)}
-html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 70px);height:100%}
-*{box-sizing:border-box}
-body{margin:0;font-family:'Outfit',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--surface);z-index:60}
-.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--surface);border-bottom:1px solid var(--line)}
-.nav{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
-.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:22px;color:var(--primary);text-decoration:none}
-.logo b{color:var(--accent)}
-.logo svg{width:34px;height:34px}
-nav ul{display:flex;gap:24px;list-style:none;margin:0;padding:0}
-nav a{color:var(--text);text-decoration:none;font-weight:500;font-size:15px}
-nav a:hover{color:var(--accent)}
-.btn{border:0;cursor:pointer;font:inherit;font-weight:600;border-radius:10px;padding:11px 20px;background:var(--accent);color:#fff;transition:.15s}
-.btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
-.btn.sec{background:transparent;color:var(--primary);border:1.5px solid var(--primary)}
-.hero{background:linear-gradient(135deg,var(--hero1),var(--hero2));color:#fff;padding:56px 0 110px;position:relative;overflow:hidden}
-.hero::after{content:"";position:absolute;right:-120px;top:-80px;width:460px;height:460px;border-radius:50%;background:radial-gradient(circle,rgba(255,122,26,.35),transparent 70%)}
-.hero h1{font-size:clamp(30px,5vw,52px);line-height:1.1;margin:0 0 12px;font-weight:800;max-width:700px}
-.hero p{font-size:18px;opacity:.9;max-width:560px;margin:0}
-.road{position:absolute;left:0;right:0;bottom:0;height:8px;background:repeating-linear-gradient(90deg,#fff 0 28px,transparent 28px 56px);opacity:.25}
-.search{background:var(--surface);color:var(--text);border-radius:18px;box-shadow:var(--shadow);padding:20px;margin-top:-76px;position:relative;z-index:5}
-.tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
-.tab{border:0;background:var(--bg);color:var(--muted);font:inherit;font-weight:600;padding:9px 18px;border-radius:999px;cursor:pointer}
-.tab.on{background:var(--primary);color:#fff}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tab.on{color:#06173a}}
-.form{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;align-items:end}
-label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em}
-select,input{width:100%;font:inherit;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);color:var(--text)}
-select:focus,input:focus{outline:2px solid var(--primary2);border-color:transparent}
-.panel{display:none}.panel.on{display:block}
-section{padding:56px 0}
-h2{font-size:30px;margin:0 0 6px;font-weight:700}
-.sub{color:var(--muted);margin:0 0 28px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(10,40,100,.05)}
-.promo .img,.dest .img{height:150px;display:flex;align-items:flex-end;padding:14px;color:#fff;font-weight:700;font-size:20px;position:relative}
-.badge{position:absolute;top:12px;right:12px;background:var(--accent);color:#fff;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px}
-.card .body{padding:16px}
-.card .body p{margin:0 0 12px;color:var(--muted);font-size:14px}
-.price{font-size:22px;font-weight:800;color:var(--primary)}
-.price small{font-size:12px;color:var(--muted);font-weight:500}
-.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
-#results{display:none;padding-top:40px}
-.svc{display:grid;grid-template-columns:1.4fr 1fr auto;gap:16px;align-items:center;padding:18px 20px;margin-bottom:12px}
-.times{display:flex;align-items:center;gap:14px;font-weight:700;font-size:22px}
-.times span small{display:block;font-size:12px;color:var(--muted);font-weight:500}
-.line{flex:1;height:2px;background:var(--line);position:relative;min-width:40px;text-align:center}
-.line i{position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-style:normal;font-size:12px;color:var(--muted);background:var(--surface);padding:0 6px;white-space:nowrap}
-.tag{display:inline-block;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:2px 8px;font-size:12px;margin:2px 4px 0 0;color:var(--muted)}
-.hotel{display:grid;grid-template-columns:140px 1fr auto;gap:16px;align-items:center;padding:14px;margin-bottom:12px}
-.hotel .ph{height:100px;border-radius:12px}
-.stars{color:var(--accent);letter-spacing:2px}
-.benefits{background:var(--surface);border-block:1px solid var(--line)}
-.benefits .grid{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
-.ben{text-align:center;padding:10px}
-.ben .ic{font-size:34px}
-.ben h3{margin:6px 0 4px;font-size:17px}.ben p{margin:0;color:var(--muted);font-size:14px}
-footer{background:var(--hero1);color:#cdd9f5;padding:40px 0 24px;font-size:14px}
-footer .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px}
-footer h4{color:#fff;margin:0 0 8px}footer p{margin:2px 0}
-.copy{border-top:1px solid rgba(255,255,255,.15);margin-top:24px;padding-top:16px;text-align:center;font-size:12px}
-.modal{position:fixed;inset:0;background:rgba(5,15,40,.6);display:none;align-items:center;justify-content:center;z-index:100;padding:16px}
-.modal.on{display:flex}
-.box{background:var(--surface);border-radius:18px;max-width:680px;width:100%;max-height:92vh;overflow:auto;padding:24px;box-shadow:var(--shadow)}
-.box h3{margin:0 0 4px;font-size:22px}
-.bus{display:grid;grid-template-columns:repeat(5,38px);gap:8px;justify-content:center;margin:14px 0;padding:16px;background:var(--bg);border-radius:14px}
-.seat{height:38px;border-radius:8px;border:1.5px solid var(--primary2);background:var(--surface);color:var(--text);font:600 12px 'Outfit',sans-serif;cursor:pointer}
-.seat.busy{background:var(--line);border-color:var(--line);color:var(--muted);cursor:not-allowed}
-.seat.sel{background:var(--accent);border-color:var(--accent);color:#fff}
-.gap{visibility:hidden}
-.legend{display:flex;gap:16px;justify-content:center;font-size:12px;color:var(--muted)}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
-.sum{background:var(--bg);border-radius:12px;padding:14px;margin:14px 0;font-size:14px}
-.sum .row{padding:3px 0}.sum .tot{font-size:18px;font-weight:800;border-top:1px dashed var(--line);margin-top:6px;padding-top:8px}
-.ok{text-align:center}.ok .check{width:70px;height:70px;border-radius:50%;background:var(--ok);color:#fff;font-size:38px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
-.code{font-size:28px;font-weight:800;letter-spacing:.08em;color:var(--primary);background:var(--bg);border-radius:12px;padding:10px;margin:12px 0}
-@media(max-width:760px){nav ul{display:none}.svc{grid-template-columns:1fr}.hotel{grid-template-columns:1fr}.hotel .ph{height:120px}.two{grid-template-columns:1fr}.hero{padding-bottom:100px}}
-</style>
-</head>
-<body>
-
-<header>
-<div class="wrap nav">
-  <a class="logo" href="#inicio" aria-label="RutaSur">
-    <svg viewBox="0 0 40 40" fill="none"><rect x="3" y="7" width="34" height="22" rx="6" fill="#1565d8"/><rect x="7" y="11" width="9" height="8" rx="2" fill="#fff"/><rect x="18" y="11" width="9" height="8" rx="2" fill="#fff"/><rect x="29" y="11" width="5" height="8" rx="2" fill="#ff7a1a"/><circle cx="12" cy="31" r="4" fill="#14213d" stroke="#fff" stroke-width="1.5"/><circle cx="28" cy="31" r="4" fill="#14213d" stroke="#fff" stroke-width="1.5"/></svg>
-    Ruta<b>Sur</b>
-  </a>
-  <nav><ul>
-    <li><a href="#inicio">Pasajes</a></li><li><a href="#promos">Promociones</a></li><li><a href="#destinos">Destinos</a></li><li><a href="#beneficios">Servicios</a></li><li><a href="#contacto">Contacto</a></li>
-  </ul></nav>
-  <button class="btn sec" onclick="misReservas()">Mis reservas</button>
-</div>
-</header>
-
-<main id="inicio">
-<div class="hero">
-  <div class="wrap">
-    <h1>Recorré la Argentina con comodidad y al mejor precio</h1>
-    <p>Pasajes en micro de larga distancia, hoteles y paquetes a más de 40 destinos del país.</p>
-  </div>
-  <div class="road"></div>
-</div>
-
-<div class="wrap">
-  <div class="search">
-    <div class="tabs">
-      <button class="tab on" data-p="p1">🚌 Pasajes</button>
-      <button class="tab" data-p="p2">🏨 Hoteles</button>
-      <button class="tab" data-p="p3">🎁 Paquetes</button>
-    </div>
-
-    <div class="panel on" id="p1"><div class="form">
-      <div><label for="o">Origen</label><select id="o"></select></div>
-      <div><label for="d">Destino</label><select id="d"></select></div>
-      <div><label for="f1">Fecha de ida</label><input type="date" id="f1"></div>
-      <div><label for="f2">Vuelta (opcional)</label><input type="date" id="f2"></div>
-      <div><label for="px">Pasajeros</label><select id="px"><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
-      <button class="btn" onclick="buscarPasajes()">Buscar pasajes</button>
-    </div></div>
-
-    <div class="panel" id="p2"><div class="form">
-      <div><label for="hd">Ciudad</label><select id="hd"></select></div>
-      <div><label for="h1">Check-in</label><input type="date" id="h1"></div>
-      <div><label for="h2">Check-out</label><input type="date" id="h2"></div>
-      <div><label for="hg">Huéspedes</label><select id="hg"><option>1</option><option selected>2</option><option>3</option><option>4</option></select></div>
-      <button class="btn" onclick="buscarHoteles()">Buscar hoteles</button>
-    </div></div>
-
-    <div class="panel" id="p3"><div class="form">
-      <div><label for="pd">Destino</label><select id="pd"></select></div>
-      <div><label for="pf">Salida</label><input type="date" id="pf"></div>
-      <div><label for="pn">Noches</label><select id="pn"><option>3</option><option>5</option><option>7</option></select></div>
-      <button class="btn" onclick="armarPaquete()">Ver paquete (pasaje + hotel)</button>
-    </div></div>
-  </div>
-</div>
-
-<section id="results"><div class="wrap">
-  <h2 id="rt"></h2><p class="sub" id="rs"></p>
-  <div id="rl"></div>
-</div></section>
-
-<section id="promos"><div class="wrap">
-  <h2>Promociones destacadas</h2><p class="sub">Aprovechá las ofertas de la temporada. Cupos limitados.</p>
-  <div class="grid" id="pg"></div>
-</div></section>
-
-<section id="destinos" style="padding-top:0"><div class="wrap">
-  <h2>Destinos más elegidos</h2><p class="sub">Desde la Patagonia hasta el Norte, viajá a donde quieras.</p>
-  <div class="grid" id="dg"></div>
-</div></section>
-
-<div class="benefits" id="beneficios"><section><div class="wrap"><div class="grid">
-  <div class="ben"><div class="ic">💺</div><h3>Coche cama y semicama</h3><p>Butacas amplias, aire acondicionado y WiFi a bordo.</p></div>
-  <div class="ben"><div class="ic">💳</div><h3>Hasta 12 cuotas</h3><p>Pagá con tarjeta, transferencia o billeteras virtuales.</p></div>
-  <div class="ben"><div class="ic">🔒</div><h3>Compra segura</h3><p>Tus datos protegidos y confirmación inmediata por mail.</p></div>
-  <div class="ben"><div class="ic">🕐</div><h3>Atención 24 hs</h3><p>Asistencia durante todo tu viaje, en cualquier momento.</p></div>
-</div></div></section></div>
-</main>
-
-<footer id="contacto"><div class="wrap">
-  <div class="cols">
-    <div><h4>RutaSur</h4><p>Agencia de viajes y turismo.</p><p>Legajo EVT N.º 00000 (ficticio)</p></div>
-    <div><h4>Contacto</h4><p>📞 0800-555-RUTA (7882)</p><p>✉️ info@rutasur.com.ar</p><p>📍 Av. Hipólito Yrigoyen 1234, Lomas de Zamora</p></div>
-    <div><h4>Medios de pago</h4><p>Visa · Mastercard · Mercado Pago · Transferencia</p></div>
-  </div>
-  <div class="copy">Prototipo con fines académicos · RutaSur es una empresa ficticia · Los precios y horarios son simulados.</div>
-</div></footer>
-
-<div class="modal" id="m"><div class="box" id="mb"></div></div>
-
+:root{--b:#2563eb;--bd:#1e3a8a;--ink:#0f172a;--mut:#64748b;--ln:#e2e8f0;--bg:#f1f5f9;--ok:#059669;--okb:#d1fae5;--wb:#fef3c7;--wt:#92400e;--rd:#dc2626;--rb:#fee2e2}
+*{box-sizing:border-box;margin:0}
+body{font:14px/1.45 Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink)}
+.nav{display:flex;align-items:center;gap:6px;padding:10px 24px;background:#fff;border-bottom:1px solid var(--ln);position:sticky;top:0;z-index:20;flex-wrap:wrap}
+.nav b{font-size:18px;color:var(--bd);margin-right:auto;cursor:pointer}
+.nav a,.tabs a,.seg a{padding:7px 12px;border-radius:8px;cursor:pointer;color:var(--mut);font-weight:600;text-align:center}
+.nav a.on,.nav a:hover{background:#eff6ff;color:var(--b)}
+main{max-width:1180px;margin:0 auto;padding:20px 16px 60px}
+.hero{background:linear-gradient(110deg,#1d4ed8,#312e81 60%,#0f172a);color:#fff;border-radius:16px;padding:26px 30px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.hero h1{font-size:28px;font-weight:800;line-height:1.15}.hero p{opacity:.85;margin-top:4px;max-width:620px}
+.hero.big{padding:48px 30px 80px;text-align:center;justify-content:center;position:relative;overflow:hidden}.hero.big h1{font-size:40px}.hero.big p{margin:8px auto 0}
+.bus{position:absolute;right:30px;top:10px;font-size:150px;opacity:.12}
+.pill{display:inline-block;font-size:11px;padding:3px 10px;border:1px solid #fff5;border-radius:99px;background:#fff2;margin-bottom:8px}
+.card{background:#fff;border:1px solid var(--ln);border-radius:14px;padding:18px;box-shadow:0 1px 3px #0f172a0d;margin-top:16px}
+.srch{margin:-48px auto 0;position:relative;max-width:900px}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end}.row>*{flex:1;min-width:130px}.jb{justify-content:space-between;align-items:center}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.split{display:grid;grid-template-columns:340px 1fr;gap:16px;align-items:start}.split2{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;align-items:start}
+label{display:block;font-weight:600;font-size:12px;margin:10px 0 4px}label.ck{display:flex;gap:6px;align-items:center;font-weight:500;color:var(--mut)}
+input,select{width:100%;padding:10px 12px;border:1px solid #cbd5e1;border-radius:9px;font:inherit;background:#fff}
+input[type=checkbox],input[type=radio]{width:auto}input:focus,select:focus,button:focus-visible{outline:2px solid var(--b);outline-offset:1px}
+.btn{background:var(--b);color:#fff;border:0;padding:10px 16px;border-radius:9px;font:600 14px Inter,sans-serif;cursor:pointer}.btn:hover{filter:brightness(1.1)}.btn:disabled{opacity:.6}
+.btn.g{background:var(--ok)}.btn.d{background:#0f172a}.btn.or{background:#d97706}.btn.o{background:#fff;color:var(--ink);border:1px solid #cbd5e1}.btn.r{background:var(--rb);color:var(--rd);border:1px solid #fca5a5}.btn.big{width:100%;padding:13px;margin-top:12px}.btn.sm{padding:6px 10px;font-size:12px}
+.mut{color:var(--mut)}.sm{font-size:12px}.c{text-align:center}.r{text-align:right}.lnk{color:var(--b);font-weight:600;cursor:pointer}
+.tabs,.seg{display:flex;gap:4px;background:var(--bg);padding:4px;border-radius:10px}.tabs a,.seg a{flex:1;background:transparent}.tabs a.on,.seg a.on{background:#fff;color:var(--b);box-shadow:0 1px 3px #0001}.seg a.on{background:var(--b);color:#fff}
+.seg a{background:#fff;border:1px solid var(--ln)}
+.auth{max-width:520px;margin:20px auto}.box{background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:10px;margin:14px 0}.box .seg{margin-top:8px;padding:0;background:none}
+.err{background:var(--rb);color:var(--rd);padding:9px 12px;border-radius:9px;margin-top:10px;font-weight:500}.err[hidden]{display:none}
+.warn{background:var(--wb);border:1px solid #fcd34d;color:var(--wt);border-radius:10px;padding:12px;font-size:12px;margin-top:12px}
+.reqs{display:grid;grid-template-columns:1fr 1fr;gap:2px 10px;font-size:12px;background:var(--bg);padding:10px;border-radius:9px;margin-top:10px;color:var(--mut)}.reqs .y{color:var(--ok);font-weight:600}
+.tag{display:inline-block;padding:2px 9px;border-radius:99px;font-size:11px;font-weight:700;background:#e2e8f0}.tag.ok{background:var(--okb);color:#047857}.tag.w{background:var(--wb);color:#b45309}.tag.b{background:#dbeafe;color:#1d4ed8}.tag.x{background:var(--rb);color:var(--rd)}
+.svc{border:1px solid var(--ln);border-radius:12px;padding:14px;margin-bottom:12px;background:#fff;cursor:pointer}.svc.on{border:2px solid var(--b);background:#eff6ff}.svc .pr{font-size:20px;font-weight:800}
+.dest{cursor:pointer;display:flex;justify-content:space-between;align-items:flex-end}.dest:hover{border-color:var(--b)}.dest b{font-size:20px;color:var(--bd)}
+.bus2{border:2px dashed #cbd5e1;border-radius:18px;padding:14px;max-width:340px;margin:14px auto;background:#f8fafc}.front{background:#e2e8f0;border-radius:8px;padding:8px 12px;font-weight:600;display:flex;justify-content:space-between;margin-bottom:12px}
+.srow{display:flex;gap:8px;justify-content:center;align-items:center;margin-bottom:8px}.pas{width:64px;text-align:center;font-size:10px;font-weight:700;color:#94a3b8}
+.seat{width:40px;height:40px;border-radius:9px;border:1.5px solid #34d399;background:#ecfdf5;color:var(--ok);font-weight:700;cursor:pointer}.seat.x{background:#f1f5f9;border-color:var(--ln);color:#94a3b8;cursor:not-allowed}.seat.s{background:var(--b);border-color:var(--b);color:#fff}
+.leg{display:flex;gap:12px;font-size:12px;color:var(--mut)}.leg i{display:inline-block;width:11px;height:11px;border-radius:3px;border:1.5px solid #34d399;background:#ecfdf5;margin-right:4px;vertical-align:-1px}.leg i.s{background:var(--b);border-color:var(--b)}.leg i.x{background:#e2e8f0;border-color:#cbd5e1}
+.sel{background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:10px 14px;display:flex;justify-content:space-between;font-weight:600}
+.steps{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;font-weight:600;font-size:13px}.steps span{padding:6px 14px;border-radius:99px;background:#fff;border:1px solid var(--ln);color:var(--mut)}.steps .d{background:var(--okb);color:var(--ok)}.steps .n{background:var(--b);color:#fff}
+.opt{border:1px solid var(--ln);border-radius:10px;padding:12px;cursor:pointer}.opt.on{border-color:var(--b);background:#eff6ff}
+.sum div{display:flex;justify-content:space-between;padding:4px 0}.sum .t{border-top:1px solid var(--ln);margin-top:8px;padding-top:10px;font-size:18px;font-weight:800}
+.tk{background:#fff;border-radius:18px;overflow:hidden;border:1px solid var(--ln);max-width:560px;margin:16px auto;box-shadow:0 8px 24px #0f172a1a}.tk>*:not(.th){margin:14px 18px}
+.th{background:linear-gradient(110deg,#1d4ed8,#312e81);color:#fff;padding:16px 18px;display:flex;justify-content:space-between;gap:10px}.th b{font-size:17px}.th .cd{text-align:right}.th .cd b{color:#fde047;font-family:monospace;font-size:17px;display:block}
+.okb2{background:#ecfdf5;border:1px solid #6ee7b7;color:#047857;padding:9px 12px;border-radius:9px;font-weight:600;font-size:12px}
+.tk .g4>div{border:1px solid var(--ln);border-radius:10px;padding:8px;font-size:10px;color:var(--mut);background:#f8fafc}.tk .g4 b{display:block;font-size:14px;color:var(--ink)}.tk .g4 .hl{background:#eff6ff;border-color:#bfdbfe}
+.tk h2{font-size:22px}.tk .jb b{display:block}.tk .jb span,.tk .jb>div:not(.c){font-size:10px;color:var(--mut)}
+.qrb{display:flex;gap:14px;background:#f8fafc;border:1px solid var(--ln);border-radius:12px;padding:14px;align-items:center}.qr{width:96px;height:96px;background:#fff;padding:6px;border:1px solid var(--ln);border-radius:8px;flex:none}.qr svg{width:100%;height:100%}.qrb p{font-size:12px;color:var(--mut)}.qrb code{font-size:10px;color:var(--mut)}
+.kpi{display:flex;justify-content:space-between;align-items:center}.kpi b{font-size:26px;display:block;font-weight:800}.kpi span{font-size:11px;font-weight:600;color:var(--mut);text-transform:uppercase}
+.tbl{width:100%;border-collapse:collapse;min-width:640px}.tbl th{text-align:left;font-size:12px;color:var(--mut);padding:10px;background:#f8fafc}.tbl td{padding:10px;border-top:1px solid var(--ln)}.tbl code{color:var(--b);font-weight:700}.ox{overflow-x:auto}
+.bar2{height:7px;border-radius:9px;background:var(--ln);overflow:hidden;width:110px}.bar2 i{display:block;height:100%;background:var(--b)}
+.ov{position:fixed;inset:0;background:#0f172a99;display:none;align-items:center;justify-content:center;z-index:50;padding:16px;overflow:auto}.ov.on{display:flex}.mb{background:#fff;border-radius:16px;padding:20px;max-width:600px;width:100%;max-height:92vh;overflow:auto}.mb h3{margin-bottom:8px}
+#toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);background:#0f172a;color:#fff;padding:11px 18px;border-radius:10px;opacity:0;transition:.25s;z-index:60;pointer-events:none;max-width:90vw}#toast.on{opacity:1;transform:translate(-50%,0)}
+.ban{background:#ecfdf5;border:1px solid #6ee7b7;border-radius:10px;padding:10px 14px;margin-top:12px;color:#047857;font-weight:600}.ban.x{background:var(--rb);border-color:#fca5a5;color:var(--rd)}
+h2.t{font-size:16px;margin-bottom:2px}
+@media(max-width:820px){.split,.split2,.g3,.g4{grid-template-columns:1fr 1fr}.split,.split2{grid-template-columns:1fr}.hero.big h1{font-size:30px}.bus{display:none}.nav{padding:8px 12px}}
+@media(max-width:520px){.g2,.g3,.g4{grid-template-columns:1fr}}
+@media print{.nav,.noprint,#toast{display:none!important}body{background:#fff}.tk{box-shadow:none}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body>
+<nav class="nav noprint" id="nav"></nav><main id="app"></main>
+<div id="modal" class="ov" onclick="if(event.target===this)closeM()"></div><div id="toast" role="status"></div>
 <script>
-const $=id=>document.getElementById(id);
-const CIUDADES={"Buenos Aires":0,"Rosario":4,"Mar del Plata":6,"Córdoba":9,"Mendoza":14,"San Luis":11,"Tucumán":15,"Salta":20,"Puerto Iguazú":18,"Bariloche":21,"Neuquén":13,"Mar de Ajó":5};
-const GRAD=["linear-gradient(135deg,#0b3d91,#1fa2c9)","linear-gradient(135deg,#c2410c,#f59e0b)","linear-gradient(135deg,#0f766e,#65a30d)","linear-gradient(135deg,#6d28d9,#ec4899)"];
-const PROMOS=[
- {t:"Bariloche Nieve",c:"Bariloche",off:25,txt:"Pasaje + 5 noches con desayuno",p:289000},
- {t:"Cataratas del Iguazú",c:"Puerto Iguazú",off:20,txt:"Pasaje cama + 3 noches + excursión",p:215000},
- {t:"Fin de semana en Mar del Plata",c:"Mar del Plata",off:15,txt:"Pasaje + 2 noches frente al mar",p:98000},
- {t:"Norte Mágico",c:"Salta",off:30,txt:"Pasaje cama suite + 4 noches",p:259000}];
-const HOTELES={ "Bariloche":["Hotel Nevados|4|78000","Cabañas del Lago|3|52000","Alto Patagonia|5|120000"],
-"Mar del Plata":["Hotel Costa Atlántica|4|55000","Residencial La Perla|3|34000"],
-"Mendoza":["Posada del Viñedo|4|62000","Hotel Cordillera|3|41000"],
-"Salta":["Hotel Casona Colonial|4|58000","Hostal del Norte|3|33000"],
-"Puerto Iguazú":["Selva Lodge|4|70000","Hotel Tres Fronteras|3|45000"],
-"Córdoba":["Hotel Sierras|4|50000","Hostal Cañada|3|30000"]};
-const SERV=[["Semicama",1,["WiFi","Aire acond.","Butaca 140°"]],["Cama",1.35,["WiFi","Butaca 160°","Cena a bordo"]],["Cama suite",1.7,["WiFi","Butaca 180°","Cena + bebida","Tomacorriente"]]];
-const money=n=>"$"+Math.round(n).toLocaleString("es-AR");
-const hoy=new Date();const iso=d=>d.toISOString().slice(0,10);
-function opts(sel,list,def){$(sel).innerHTML=list.map(c=>`<option ${c===def?"selected":""}>${c}</option>`).join("")}
-opts("o",Object.keys(CIUDADES),"Buenos Aires");opts("d",Object.keys(CIUDADES),"Bariloche");
-opts("hd",Object.keys(HOTELES),"Bariloche");opts("pd",Object.keys(HOTELES),"Bariloche");
-["f1","f2","h1","h2","pf"].forEach(i=>$(i).min=iso(hoy));
-const mas=n=>iso(new Date(hoy.getTime()+n*864e5));
-$("f1").value=mas(7);$("h1").value=mas(7);$("h2").value=mas(10);$("pf").value=mas(14);
-document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.remove("on"));document.querySelectorAll(".panel").forEach(x=>x.classList.remove("on"));t.classList.add("on");$(t.dataset.p).classList.add("on")});
-$("pg").innerHTML=PROMOS.map((p,i)=>`<div class="card promo"><div class="img" style="background:${GRAD[i]}"><span class="badge">-${p.off}%</span>${p.t}</div><div class="body"><p>${p.txt}</p><div class="row"><div class="price"><small>desde</small><br>${money(p.p)}</div><button class="btn" onclick="irPromo(${i})">Reservar</button></div></div></div>`).join("");
-$("dg").innerHTML=["Bariloche","Mendoza","Salta","Puerto Iguazú"].map((c,i)=>{const b=2800*CIUDADES[c]+20000;return `<div class="card dest"><div class="img" style="background:${GRAD[(i+2)%4]}">${c}</div><div class="body"><div class="row"><div class="price"><small>pasajes desde</small><br>${money(b)}</div><button class="btn sec" onclick="irDest('${c}')">Ver</button></div></div></div>`}).join("");
-
-function show(t,s){$("results").style.display="block";$("rt").textContent=t;$("rs").textContent=s;$("results").scrollIntoView()}
-function fmt(f){return new Date(f+"T12:00").toLocaleDateString("es-AR",{weekday:"long",day:"numeric",month:"long"})}
-function dur(o,d){const h=Math.abs(CIUDADES[o]-CIUDADES[d])||3;return Math.max(h,2)}
-function buscarPasajes(){
-  const o=$("o").value,d=$("d").value,f=$("f1").value,n=+$("px").value;
-  if(o===d)return alert("El origen y el destino deben ser distintos.");
-  if(!f)return alert("Elegí una fecha de ida.");
-  const h=dur(o,d),base=3000*h+15000,salidas=[6,13,20,23];
-  show(`${o} → ${d}`,`${fmt(f)} · ${n} pasajero(s)${$("f2").value?" · Vuelta "+fmt($("f2").value):""}`);
-  $("rl").innerHTML=salidas.map((s,i)=>{const sv=SERV[i%3],ll=(s+h)%24,dia=s+h>=24?" (+1)":"",pr=base*sv[1];
-    return `<div class="card svc"><div class="times"><span>${String(s).padStart(2,"0")}:00<small>${o}</small></span><div class="line"><i>${h} h</i></div><span>${String(ll).padStart(2,"0")}:30${dia}<small>${d}</small></span></div>
-    <div><b>${sv[0]}</b><br>${sv[2].map(x=>`<span class="tag">${x}</span>`).join("")}</div>
-    <div style="text-align:right"><div class="price">${money(pr)}<small> / pers.</small></div><button class="btn" style="margin-top:6px" onclick="elegirAsiento('${o}','${d}','${f}','${String(s).padStart(2,"0")}:00','${sv[0]}',${pr},${n})">Elegir</button></div></div>`}).join("");
-}
-function buscarHoteles(){
-  const c=$("hd").value,a=$("h1").value,b=$("h2").value,g=+$("hg").value;
-  const noches=Math.round((new Date(b)-new Date(a))/864e5);
-  if(!a||!b||noches<1)return alert("Revisá las fechas: el check-out debe ser posterior al check-in.");
-  show(`Hoteles en ${c}`,`${noches} noche(s) · ${g} huésped(es) · ${fmt(a)}`);
-  $("rl").innerHTML=HOTELES[c].map((x,i)=>{const [n,e,p]=x.split("|");return `<div class="card hotel"><div class="ph" style="background:${GRAD[i%4]}"></div><div><b style="font-size:18px">${n}</b><div class="stars">${"★".repeat(e)}</div><span class="tag">Desayuno</span><span class="tag">WiFi</span><span class="tag">Cancelación gratis</span></div><div style="text-align:right"><div class="price">${money(p*noches)}<small> total</small></div><small style="color:var(--muted)">${money(p)} por noche</small><br><button class="btn" style="margin-top:6px" onclick="datosHotel('${n}','${c}',${p*noches},${noches})">Reservar</button></div></div>`}).join("");
-}
-function armarPaquete(){const c=$("pd").value,n=+$("pn").value,f=$("pf").value;
-  const pas=(3000*dur("Buenos Aires",c)+15000)*1.35*2,h=+HOTELES[c][0].split("|")[2]*n,tot=(pas+h)*.85;
-  show(`Paquete a ${c}`,`${n} noches · salida ${fmt(f)} · 15% OFF aplicado`);
-  $("rl").innerHTML=`<div class="card svc"><div><b style="font-size:18px">Pasaje cama ida y vuelta + ${n} noches</b><br><span class="tag">Hotel ${HOTELES[c][0].split("|")[0]}</span><span class="tag">Traslados</span><span class="tag">Asistencia al viajero</span></div><div></div><div style="text-align:right"><div class="price">${money(tot)}<small> / pers.</small></div><button class="btn" style="margin-top:6px" onclick="datosHotel('Paquete a ${c} (${n} noches)','${c}',${tot},${n})">Reservar</button></div></div>`}
-function irPromo(i){const p=PROMOS[i];$("d").value=p.c;$("pd").value=HOTELES[p.c]?p.c:$("pd").value;armarPaquete();}
-function irDest(c){document.querySelector('[data-p="p1"]').click();$("d").value=c;scrollTo({top:0});buscarPasajes()}
-
-const modal=h=>{$("mb").innerHTML=h;$("m").classList.add("on")};
-const cerrar=()=>$("m").classList.remove("on");
-$("m").onclick=e=>{if(e.target.id==="m")cerrar()};
-let R={};
-function elegirAsiento(o,d,f,hr,sv,pr,n){
-  R={o,d,f,hr,sv,pr,n,seats:[],tipo:"pasaje"};
-  const busy=new Set();while(busy.size<14)busy.add(1+Math.floor(Math.random()*40));
-  let g="";for(let i=1;i<=40;i++){g+=`<button class="seat ${busy.has(i)?"busy":""}" ${busy.has(i)?"disabled":""} onclick="tog(this,${i})">${i}</button>`;if(i%4===2)g+=`<span class="gap"></span>`}
-  modal(`<h3>Elegí tus asientos</h3><p class="sub" style="margin:0">${o} → ${d} · ${hr} hs · ${sv} · Seleccioná ${n} asiento(s)</p>
-  <div class="bus">${g}</div><div class="legend"><span>⬜ Libre</span><span style="color:var(--accent)">🟧 Elegido</span><span>▫️ Ocupado</span></div>
-  <div class="row" style="margin-top:16px"><button class="btn sec" onclick="cerrar()">Cancelar</button><button class="btn" onclick="sigAsiento()">Continuar</button></div>`);
-}
-function tog(b,i){const k=R.seats.indexOf(i);if(k>-1){R.seats.splice(k,1);b.classList.remove("sel")}else if(R.seats.length<R.n){R.seats.push(i);b.classList.add("sel")}}
-function sigAsiento(){if(R.seats.length<R.n)return alert(`Seleccioná ${R.n} asiento(s).`);datos()}
-function datosHotel(n,c,tot,noches){R={tipo:"hotel",nombre:n,total:tot,noches,c};datos()}
-function datos(){
-  const tot=R.tipo==="hotel"?R.total:R.pr*R.n;R.total=tot;
-  const det=R.tipo==="hotel"?`<div class="row"><span>${R.nombre}</span><span>${R.noches} noche(s)</span></div>`:`<div class="row"><span>${R.o} → ${R.d}</span><span>${R.hr} hs</span></div><div class="row"><span>${R.sv}</span><span>Asientos: ${R.seats.sort((a,b)=>a-b).join(", ")}</span></div>`;
-  modal(`<h3>Datos del pasajero</h3><div class="two"><div><label>Nombre y apellido</label><input id="nm" placeholder="Ej: Juan Pérez"></div><div><label>DNI</label><input id="dn" inputmode="numeric" placeholder="12345678"></div><div><label>Email</label><input id="em" type="email" placeholder="correo@mail.com"></div><div><label>Medio de pago</label><select id="mp"><option>Tarjeta de crédito (hasta 12 cuotas)</option><option>Tarjeta de débito</option><option>Mercado Pago</option><option>Transferencia</option></select></div></div>
-  <div class="sum">${det}<div class="row tot"><span>Total</span><span>${money(tot)}</span></div></div>
-  <div class="row"><button class="btn sec" onclick="cerrar()">Cancelar</button><button class="btn" onclick="confirmar()">Confirmar reserva</button></div>`);
-}
-function confirmar(){
-  const nm=$("nm").value.trim(),dn=$("dn").value.trim(),em=$("em").value.trim();
-  if(!nm||!/^\d{7,8}$/.test(dn)||!/\S+@\S+\.\S+/.test(em))return alert("Completá nombre, DNI (7 u 8 dígitos) y un email válido.");
-  const code="RS-"+Math.random().toString(36).slice(2,8).toUpperCase();
-  const r={code,nm,desc:R.tipo==="hotel"?R.nombre:`${R.o} → ${R.d} (${R.f})`,total:R.total};
-  (window._res=window._res||[]).push(r);
-  modal(`<div class="ok"><div class="check">✓</div><h3>¡Reserva confirmada!</h3><p class="sub">Enviamos el comprobante a ${em}</p><div class="code">${code}</div><p>${r.desc}<br>Pasajero: ${nm} · Total: <b>${money(r.total)}</b></p><button class="btn" onclick="cerrar()">Volver al inicio</button></div>`);
-}
-function misReservas(){const l=window._res||[];
-  modal(`<h3>Mis reservas</h3><p class="sub">${l.length?"Reservas realizadas en esta sesión.":"Todavía no realizaste ninguna reserva."}</p>${l.map(r=>`<div class="sum"><div class="row"><b>${r.code}</b><span>${money(r.total)}</span></div><div>${r.desc} · ${r.nm}</div></div>`).join("")}<button class="btn" onclick="cerrar()">Cerrar</button>`)}
-</script>
-</body>
-</html>
+/* ===== Utilidades ===== */
+const $=s=>document.querySelector(s),fm=n=>'$'+Math.round(n).toLocaleString('es-AR'),NOW=new Date(),p2=n=>String(n).padStart(2,'0');
+const addD=(d,h=0,m=0)=>{const x=new Date(NOW);x.setDate(x.getDate()+d);x.setHours(h,m,0,0);return x};
+const iso=d=>d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate()),fd=d=>p2(d.getDate())+'/'+p2(d.getMonth()+1)+'/'+d.getFullYear(),ft=d=>p2(d.getHours())+':'+p2(d.getMinutes());
+const fdL=f=>new Date(f+'T00:00').toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const mail=e=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e),dep=(f,h)=>new Date(f+'T'+h+':00');
+const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('on'),3200)};
+const modal=h=>{$('#modal').innerHTML='<div class="mb">'+h+'</div>';$('#modal').classList.add('on')},closeM=()=>$('#modal').classList.remove('on');
+function qr(seed){let h=0;for(const c of seed)h=(h*31+c.charCodeAt(0))>>>0;let o='';const inF=(x,y)=>[[0,0],[14,0],[0,14]].find(([a,b])=>x>=a&&x<a+7&&y>=b&&y<b+7);
+for(let y=0;y<21;y++)for(let x=0;x<21;x++){const f=inF(x,y);let on;if(f){const dx=x-f[0],dy=y-f[1];on=dx==0||dx==6||dy==0||dy==6||(dx>=2&&dx<=4&&dy>=2&&dy<=4)}else{h=(h*1103515245+12345)>>>0;on=(h>>16)&1}
+if(on)o+=`<rect x="${x}" y="${y}" width="1" height="1"/>`}return`<svg viewBox="0 0 21 21" shape-rendering="crispEdges">${o}</svg>`}
+/* ===== Datos simulados (sin backend) ===== */
+const ORIG=['Terminal Retiro (CABA)','Terminal Avellaneda'],DEST=['Mar del Plata','Bariloche','Córdoba'];
+const SVC=[
+{id:'VJ-104',name:'RutaSur Plus',coche:'Coche 104',tipo:'Cama Ejecutivo (Doble Piso)',dest:'Mar del Plata',h:'08:00',l:'13:30',dur:'5h 30m',price:34500,occ:[1,2,8,16,11,12]},
+{id:'VJ-088',name:'RutaSur Clásico',coche:'Coche 88',tipo:'Semi-Cama Estándar',dest:'Mar del Plata',h:'12:30',l:'18:15',dur:'5h 45m',price:29000,occ:[1,2,3,4,5,6,7,8,9,10]},
+{id:'VJ-112',name:'RutaSur Nocturno',coche:'Coche 112',tipo:'Suite Premium Total',dest:'Mar del Plata',h:'23:45',l:'05:00',dur:'5h 15m',price:41000,occ:[3,12]},
+{id:'VJ-201',name:'RutaSur Cama Suite',coche:'Coche 112',tipo:'Cama Suite',dest:'Bariloche',h:'19:30',l:'11:30',dur:'16h',price:84000,occ:[4,5,9]},
+{id:'VJ-305',name:'RutaSur Directo',coche:'Coche 88',tipo:'Semi-Cama Directo',dest:'Córdoba',h:'21:00',l:'07:00',dur:'10h',price:45000,occ:[2,6]}];
+const USERS=[{e:'pasajero@rutasur.com',p:'Demo1234',role:'cliente',n:'Juan Pérez',dni:'38.450.123'},{e:'boleteria@rutasur.com',p:'Demo1234',role:'staff',n:'Carlos Benítez'},{e:'admin@rutasur.com',p:'Demo1234',role:'admin',n:'Administración'},{e:'baja@rutasur.com',p:'Demo1234',role:'cliente',n:'Cuenta baja',off:1}];
+const DEMO={cliente:'pasajero@rutasur.com',staff:'boleteria@rutasur.com',admin:'admin@rutasur.com'};
+let R=[
+{code:'RS-88421',pas:'Pérez, Juan',dni:'38.450.123',ruta:'Retiro (CABA) → Mar del Plata',svc:'VJ-104',dep:addD(3,8,30),seat:12,monto:32500,est:'confirmada',canal:'Web',own:'*',emit:addD(-2,14,22)},
+{code:'RS-71209',pas:'Pérez, Juan',dni:'38.450.123',ruta:'Retiro (CABA) → Bariloche',svc:'VJ-201',dep:addD(-100,19,30),seat:5,monto:84000,est:'finalizada',canal:'Web',own:'*',emit:addD(-110)},
+{code:'RS-60311',pas:'Pérez, Juan',dni:'38.450.123',ruta:'Retiro (CABA) → Córdoba',svc:'VJ-305',dep:addD(-40,21),seat:6,monto:45000,est:'cancelada',ref:36000,canal:'Web',own:'*',emit:addD(-50)},
+{code:'RS-9438-MP',pas:'Pérez Rossi, Juan Manuel',dni:'38.450.912',ruta:'Retiro (CABA) → Mar del Plata',svc:'VJ-104',dep:addD(3,8,0),seat:11,monto:34500,est:'confirmada',canal:'Web',own:'x',emit:addD(-1)},
+{code:'RS-8812-BA',pas:'González, Marcela',dni:'27.119.450',ruta:'Retiro (CABA) → Bariloche',svc:'VJ-201',dep:addD(4,19,30),seat:4,monto:84000,est:'confirmada',canal:'Boletería',own:'x',emit:addD(-1)}];
+const SALES=[];for(let i=0;i<90;i++){const s=SVC[i%5];SALES.push({f:addD(-(i%30)),monto:s.price,ruta:'Retiro → '+s.dest})}
+let B=[{coche:'Coche 104',pat:'AF 392 LL',cap:48,est:'Habilitado'},{coche:'Coche 88',pat:'AE 455 KP',cap:40,est:'Habilitado'},{coche:'Coche 112',pat:'AE 810 XM',cap:40,est:'Habilitado'}];
+let T=[{id:'VJ-104',o:'Retiro (CABA)',d:'Mar del Plata',h:'08:00',dias:'Diario',coche:'Coche 104',chofer:'R. Gómez',tarifa:34500,occ:36,cap:48,est:'Programado'},
+{id:'VJ-088',o:'Retiro (CABA)',d:'Bariloche',h:'19:30',dias:'Lu, Mi, Vi',coche:'Coche 112',chofer:'M. Sosa',tarifa:84000,occ:38,cap:40,est:'Programado'}];
+let M=[[11,'Piso 1 · Vent.','Pérez Rossi, Juan Manuel','38.450.912','#RS-9438-MP','Semi-Cama','07:48'],[1,'Piso 1 · Pas.','Albarracín, Carla','35.122.901','#RS-9210-CB','Semi-Cama','07:44'],[2,'Piso 1 · Vent.','Vázquez, Hernán','40.892.114','#RS-9304-HV','Semi-Cama',0],[7,'Piso 2 · Pas.','Díaz, Florencia','39.001.442','#RS-9118-FD','Cama Ejecutivo',0],[3,'Piso 1 · Vent.','Romero, Lucía','33.210.778','#RS-9011-LR','Semi-Cama','07:30'],[4,'Piso 1 · Pas.','Sosa, Martín','36.540.221','#RS-9022-MS','Semi-Cama','07:35']].map(a=>({b:a[0],piso:a[1],n:a[2],dni:a[3],res:a[4],t:a[5],ab:a[6]}));
+let S={v:'home',at:'login',prof:'cliente',user:null,q:{o:ORIG[0],d:'Mar del Plata',f:iso(addD(3)),v:iso(addD(8)),n:1,iv:true},svc:null,seats:[],f:{},m:'card',tab:'prox',aT:'viajes',bq:'',fil:'all',caja:[{m:'Efectivo',monto:348000}],closed:false};
+const V={},A={};
+/* ===== Navegación ===== */
+function nav(){const r=S.user&&S.user.role;let l=[['home','Inicio']];if(r=='cliente')l.push(['res','Mis reservas']);if(r=='staff')l.push(['box','Boletería'],['drv','Chofer']);if(r=='admin')l.push(['adm','Administración']);
+$('#nav').innerHTML='<b onclick="go(\'home\')">🚌 RutaSur</b>'+l.map(([v,t])=>`<a class="${S.v==v?'on':''}" onclick="go('${v}')">${t}</a>`).join('')+(S.user?`<span class="mut sm">${esc(S.user.name)}</span><a onclick="logout()">Salir</a>`:`<a class="${S.v=='auth'?'on':''}" onclick="go('auth')">Ingresar</a>`)}
+function go(v){clearInterval(S.tm);const need={res:'cliente',box:'staff',drv:'staff',adm:'admin',pay:'cliente',tk:'cliente'};
+if(need[v]&&(!S.user||S.user.role!==need[v])){if(!S.user){S.next=v;toast('Iniciá sesión para continuar');v='auth'}else return toast('Tu perfil no tiene acceso a esta sección')}
+S.v=v;render();scrollTo(0,0)}
+function render(){$('#app').innerHTML=V[S.v]();nav();if(S.v=='pay')timer()}
+function logout(){S.user=null;toast('Sesión cerrada');go('home')}
+/* ===== Autenticación ===== */
+V.auth=()=>`<div class="hero"><div><span class="pill">Portal oficial de usuarios</span><h1>Acceso a la plataforma RutaSur</h1><p>Autenticación centralizada y registro de pasajeros, personal de atención en boletería y administradores de flota.</p></div><div class="pill">🔒 Hash SHA-256 / SSL TLS 1.3</div></div>
+<div class="card auth"><div class="tabs">${[['login','Iniciar sesión'],['reg','Crear cuenta'],['rec','Recuperar']].map(([k,n])=>`<a class="${S.at==k?'on':''}" onclick="S.at='${k}';render()">${n}</a>`).join('')}</div>${A[S.at]()}</div>`;
+A.login=()=>`<h2 class="c" style="margin-top:16px">¡Te damos la bienvenida de nuevo!</h2><p class="c mut">Ingresá tus credenciales para acceder a tus reservas y servicios</p>
+<div class="box"><b class="sm">Seleccioná tu perfil de acceso:</b><div class="seg">${[['cliente','Cliente'],['staff','Boletería/Chofer'],['admin','Administrador']].map(([k,n])=>`<a class="${S.prof==k?'on':''}" onclick="S.prof='${k}';render()">${n}</a>`).join('')}</div></div>
+<label for="le">Correo electrónico</label><input id="le" value="${DEMO[S.prof]}"><label for="lp">Contraseña <a class="lnk" style="float:right" onclick="S.at='rec';render()">¿Olvidaste tu contraseña?</a></label><input id="lp" type="password" value="Demo1234">
+<label class="ck"><input type="checkbox" checked> Recordar sesión en este equipo</label><div id="err" class="err" hidden></div>
+<button class="btn big" onclick="login()">Iniciar sesión como ${{cliente:'Cliente',staff:'Personal',admin:'Administrador'}[S.prof]}</button>
+<p class="c mut sm" style="margin-top:12px">Demo: contraseña <b>Demo1234</b> · <b>baja@rutasur.com</b> simula una cuenta deshabilitada.<br>¿No tenés una cuenta todavía? <a class="lnk" onclick="S.at='reg';render()">Registrate gratis acá</a></p>`;
+function login(){const e=$('#le').value.trim().toLowerCase(),p=$('#lp').value,u=USERS.find(x=>x.e==e),er=m=>{$('#err').hidden=false;$('#err').textContent=m};
+if(!e||!p)return er('Completá el correo y la contraseña.');if(!u||u.p!==p)return er('Las credenciales no son válidas. Revisá el correo y la contraseña.');
+if(u.off)return er('La cuenta está deshabilitada. No es posible ingresar.');if(u.role!==S.prof)return er('Esta cuenta no corresponde al perfil seleccionado.');
+S.user={name:u.n,email:u.e,role:u.role,dni:u.dni};const n=S.next;S.next=null;toast('Sesión iniciada');go(n||{cliente:'home',staff:'box',admin:'adm'}[u.role])}
+A.reg=()=>`<h2 class="c" style="margin-top:16px">Registrate en RutaSur</h2><p class="c mut">Completá tus datos para comprar y gestionar tus pasajes en segundos</p>
+<div class="g2"><div><label>Nombre *</label><input id="rn" placeholder="Juan"></div><div><label>Apellido *</label><input id="ra" placeholder="Pérez"></div><div><label>DNI / Pasaporte *</label><input id="rd" placeholder="38450123"></div><div><label>Teléfono móvil *</label><input id="rt" placeholder="11 5544-3322"></div></div>
+<label>Correo electrónico *</label><input id="re" type="email" placeholder="tu@email.com"><div class="sm mut">Enviaremos los pasajes y comprobantes con QR a este correo.</div>
+<div class="g2"><div><label>Contraseña *</label><input id="rp" type="password" placeholder="Mínimo 8 caracteres" oninput="pw()"></div><div><label>Confirmar contraseña *</label><input id="rp2" type="password" placeholder="Repetir contraseña"></div></div>
+<div class="reqs"><b style="grid-column:1/3">Requisitos de seguridad:</b><span id="q1">○ Mínimo 8 caracteres</span><span id="q2">○ Al menos 1 número</span><span id="q3">○ 1 letra mayúscula</span><span>✓ Cifrado de clave seguro</span></div>
+<label class="ck" style="margin-top:12px"><input id="rk" type="checkbox"> Acepto los Términos del Servicio y la Política de Protección de Datos Personales (Ley 25.326).</label><div id="err" class="err" hidden></div>
+<button class="btn g big" onclick="reg()">Crear mi cuenta</button><p class="c mut sm" style="margin-top:12px">¿Ya tenés cuenta? <a class="lnk" onclick="S.at='login';render()">Iniciá sesión acá</a></p>`;
+function pw(){const v=$('#rp').value;[[1,v.length>=8],[2,/\d/.test(v)],[3,/[A-Z]/.test(v)]].forEach(([i,ok])=>{const el=$('#q'+i);el.className=ok?'y':'';el.textContent=el.textContent.replace(/^./,ok?'✓':'○')})}
+function reg(){const g=i=>$(i).value.trim(),er=m=>{$('#err').hidden=false;$('#err').textContent=m},e=g('#re').toLowerCase(),p=$('#rp').value;
+if(!g('#rn')||!g('#ra')||!g('#rd')||!g('#rt')||!e||!p)return er('Faltan datos obligatorios. Completá todos los campos marcados con *.');
+if(!/^\d{6,9}$|^[A-Z0-9]{6,9}$/i.test(g('#rd').replace(/\./g,'')))return er('El DNI o pasaporte no es válido.');if(!mail(e))return er('El correo electrónico no es válido.');
+if(USERS.some(u=>u.e==e))return er('Ese correo ya está registrado. Usá otro correo electrónico.');
+if(p.length<8||!/\d/.test(p)||!/[A-Z]/.test(p))return er('La contraseña no cumple los requisitos de seguridad.');if(p!==$('#rp2').value)return er('Las contraseñas no coinciden.');
+if(!$('#rk').checked)return er('Debés aceptar los Términos y la Política de Protección de Datos.');
+USERS.push({e,p,role:'cliente',n:g('#rn')+' '+g('#ra'),dni:g('#rd')});S.at='login';S.prof='cliente';toast('Cuenta creada. Ya podés iniciar sesión.');render();$('#le').value=e}
+A.rec=()=>`<div class="c" style="margin-top:16px;font-size:34px">🔑</div><h2 class="c">¿Olvidaste tu contraseña?</h2><p class="c mut">Ingresá el correo asociado a tu cuenta y te enviaremos las instrucciones de restablecimiento.</p>
+<label>Correo electrónico</label><input id="rc" placeholder="tu@email.com"><div class="warn">Por seguridad, el enlace temporal que recibirás será válido durante <b>15 minutos</b> y caducará automáticamente tras su uso.</div><div id="err" class="err" hidden></div>
+<button class="btn big" onclick="rec()">Enviar enlace de recuperación</button><p class="c" style="margin-top:12px"><a class="lnk" onclick="S.at='login';render()">← Volver a iniciar sesión</a></p>`;
+function rec(){if(!mail($('#rc').value.trim())){$('#err').hidden=false;$('#err').textContent='Ingresá un correo electrónico válido.';return}toast('Si el correo existe, enviamos el enlace de recuperación.');S.at='login';render()}
+/* ===== Inicio y buscador ===== */
+V.home=()=>{const q=S.q,op=(a,v)=>a.map(x=>`<option ${x==v?'selected':''}>${x}</option>`).join('');return`<div class="hero big"><div><span class="pill">Tu viaje comienza acá</span><h1>Viajá cómodo y seguro con RutaSur</h1><p>Conectamos Buenos Aires con los principales destinos del país. Pasajes online al instante.</p></div><div class="bus">🚌</div></div>
+<div class="card srch"><div class="row" style="align-items:center;flex-wrap:nowrap;flex:0"><label class="ck" style="min-width:0"><input type="radio" name="tp" value="iv" ${q.iv?'checked':''} onchange="$('#qv').disabled=false"> Ida y vuelta</label><label class="ck" style="min-width:0"><input type="radio" name="tp" value="i" ${q.iv?'':'checked'} onchange="$('#qv').disabled=true"> Solo ida</label></div>
+<div class="row"><div><label>Origen</label><select id="qo">${op(ORIG,q.o)}</select></div><div><label>Destino</label><select id="qd">${op(DEST,q.d)}</select></div><div><label>Fecha ida</label><input id="qf" type="date" min="${iso(NOW)}" value="${q.f}"></div><div><label>Fecha vuelta</label><input id="qv" type="date" value="${q.v}" ${q.iv?'':'disabled'}></div><div style="max-width:110px"><label>Pasajeros</label><select id="qn">${[1,2,3,4].map(n=>`<option ${n==q.n?'selected':''}>${n}</option>`).join('')}</select></div><button class="btn" style="flex:0 0 110px" onclick="search()">🔍 Buscar</button></div>
+<div class="g3" style="margin-top:16px;font-size:12px"><div>🛡️ <b>Compra 100% segura</b> con QR oficial de abordaje.</div><div>💳 <b>Tarjetas y Mercado Pago</b> hasta 6 cuotas fijas.</div><div>🔄 <b>Reprogramación online</b> hasta 24 hs antes del viaje.</div></div></div>
+<h3 style="margin:24px 0 8px;font-size:13px;letter-spacing:.04em;text-transform:uppercase">Destinos frecuentes más elegidos</h3>
+<div class="g3">${[['Retiro','Mar del Plata','Salidas diarias cada 1 hora',32500],['Retiro','Bariloche','Servicio cama suite',84000],['Avellaneda','Córdoba','Semi-cama directo',45000]].map(d=>`<div class="card dest" style="margin:0" onclick="quick('${d[1]}','${d[0]=='Retiro'?0:1}')"><div><span class="mut sm">Desde ${d[0]}</span><br><b style="color:var(--ink);font-size:17px">${d[1]}</b><br><span class="sm" style="color:var(--ok)">${d[2]}</span></div><div class="r"><span class="mut sm">Desde</span><br><b>${fm(d[3])}</b></div></div>`).join('')}</div>`};
+function search(){const o=$('#qo').value,d=$('#qd').value,f=$('#qf').value,v=$('#qv').value,n=+$('#qn').value,iv=document.querySelector('[name=tp]:checked').value=='iv';
+if(!o||!d||!f)return toast('Completá origen, destino y fecha');if(o.includes(d))return toast('El origen y el destino no pueden ser iguales');
+if(f<iso(NOW))return toast('La fecha de ida no puede ser anterior a hoy');if(iv&&v&&v<f)return toast('La vuelta no puede ser anterior a la ida');
+S.q={o,d,f,v:iv?v:'',n,iv};S.svc=null;S.seats=[];S.f={};go('book')}
+function quick(d,o){S.q.d=d;S.q.o=ORIG[o];S.svc=null;S.seats=[];S.f={};go('book')}
+/* ===== Servicios, asientos y pasajeros ===== */
+const fi=(id,l,t='text')=>`<div><label>${l} *</label><input id="${id}" type="${t}" value="${esc(S.f[id]||'')}" oninput="S.f['${id}']=this.value"></div>`;
+V.book=()=>{const q=S.q,L=SVC.filter(s=>s.dest==q.d),free=s=>16-s.occ.length;
+const head=`<div class="card jb" style="display:flex;margin-top:0"><div><b style="font-size:17px">${q.o.replace('Terminal ','')} → ${q.d}</b><div class="mut sm">${fdL(q.f)} · ${q.n} pasajero${q.n>1?'s':''}</div></div><a class="lnk" onclick="go('home')">✎ Modificar búsqueda</a></div>`;
+if(!L.length)return head+'<div class="card c">No existen viajes disponibles para los datos seleccionados.</div>';
+const s=S.svc&&L.includes(S.svc)?S.svc:null,list=L.map(x=>`<div class="svc ${x==s?'on':''}" onclick="pick(${SVC.indexOf(x)})"><div class="jb" style="display:flex"><b>${x.name} · ${x.coche}</b><span class="pr">${fm(x.price)}</span></div><div class="sm" style="color:var(--b);font-weight:600">${x.tipo}</div>
+<div class="jb sm" style="display:flex;margin-top:8px;background:#f8fafc;border-radius:8px;padding:8px"><span><b>${x.h} hs</b><br>Salida</span><span class="mut c">${x.dur}<br>Directo</span><span class="r"><b>${x.l} hs</b><br>Llegada</span></div>
+<div class="sm" style="margin-top:6px;color:${free(x)?'var(--ok)':'var(--rd)'}">${free(x)?'✓ '+free(x)+' butacas libres':'Sin butacas disponibles'}</div></div>`).join('');
+let right='<div class="card c mut">Elegí un servicio para ver la distribución de asientos.</div>';
+if(s){const seat=n=>s.occ.includes(n)?`<button class="seat x" disabled aria-label="Butaca ${n} ocupada">${p2(n)}</button>`:`<button class="seat ${S.seats.includes(n)?'s':''}" onclick="tog(${n})" aria-label="Butaca ${n}">${p2(n)}</button>`;
+const rows=[0,1,2,3].map(r=>`<div class="srow">${seat(r*4+1)}${seat(r*4+2)}<span class="pas">PASILLO</span>${seat(r*4+3)}${seat(r*4+4)}</div>`).join('');
+right=`<div class="card" style="margin-top:0"><div class="jb" style="display:flex"><div><b>Selección de butaca · ${s.coche}</b><div class="mut sm">Seleccioná hasta ${q.n} butaca${q.n>1?'s':''}</div></div><div class="leg"><span><i></i>Libre</span><span><i class="s"></i>Elegida</span><span><i class="x"></i>Ocupada</span></div></div>
+<div class="bus2"><div class="front"><span>⊙ Frente / Conductor</span><span class="sm">TV / Baño</span></div>${rows}<div class="c sm mut">Parte trasera de la unidad</div></div>
+<div class="sel"><span>${S.seats.length?'Asiento'+(S.seats.length>1?'s':'')+' seleccionado'+(S.seats.length>1?'s':'')+': Butaca '+S.seats.join(', '):'Todavía no elegiste butaca'}</span><span>${fm(S.seats.length*s.price)}</span></div></div>
+<div class="card"><h2 class="t">Datos de los pasajeros</h2><p class="mut sm">Información requerida para emitir el boleto y el manifiesto oficial de la CNRT.</p>
+${S.seats.map((st,i)=>`<b class="sm" style="display:block;margin-top:12px">Pasajero ${i+1} · Butaca ${st}</b><div class="g3">${fi('n'+i,'Nombre')}${fi('a'+i,'Apellido')}${fi('d'+i,'DNI')}</div>`).join('')||'<p class="mut sm" style="margin-top:8px">Elegí al menos una butaca para cargar los datos.</p>'}
+<div class="g2" style="margin-top:4px">${fi('em','Correo electrónico','email')}${fi('tl','Teléfono móvil','tel')}</div>
+<div class="jb" style="display:flex;margin-top:16px"><a class="lnk" onclick="go('home')">← Volver a búsqueda</a><button class="btn" onclick="toPay()">Continuar al pago →</button></div></div>`}
+return head+`<div class="split" style="margin-top:16px"><div><div class="mut sm" style="font-weight:700;margin-bottom:8px">SERVICIOS DISPONIBLES PARA ESTA FECHA</div>${list}</div><div>${right}</div></div>`};
+function pick(i){S.svc=SVC[i];S.seats=[];render()}
+function tog(n){const i=S.seats.indexOf(n);if(i>=0)S.seats.splice(i,1);else if(S.seats.length>=S.q.n)return toast('Elegiste el máximo de '+S.q.n+' butaca(s) de esta búsqueda');else S.seats.push(n);S.seats.sort((a,b)=>a-b);render()}
+function toPay(){const s=S.svc;if(!S.seats.length)return toast('Debés seleccionar al menos un asiento');
+if(S.seats.some(n=>s.occ.includes(n)))return toast('Uno de los asientos ya no está disponible. Elegí otro.');
+const pax=S.seats.map((_,i)=>({n:(S.f['n'+i]||'').trim(),a:(S.f['a'+i]||'').trim(),d:(S.f['d'+i]||'').trim()}));
+if(pax.some(x=>!x.n||!x.a||!x.d)||!S.f.em||!S.f.tl)return toast('Faltan datos obligatorios de los pasajeros');
+if(pax.some(x=>!/^[\d.]{6,10}$/.test(x.d)))return toast('Revisá el DNI: solo números');if(!mail(S.f.em))return toast('El correo electrónico no es válido');
+S.pend={svc:s,seats:[...S.seats],pax,em:S.f.em,exp:Date.now()+6e5,total:S.seats.length*s.price};go('pay')}
+/* ===== Pago ===== */
+V.pay=()=>{const p=S.pend;if(!p){S.v='home';return V.home()}const b=p.total/1.1,c=p.total;
+return`<div class="steps"><span class="d">✓ Búsqueda</span><span class="d">✓ Butacas</span><span class="n">3 Pago digital</span><span>4 Boleto QR</span></div><div class="warn">⏱ Tus asientos están reservados por <b id="cd">10:00</b>. Si el tiempo vence, la reserva se libera.</div>
+<div class="split2" style="margin-top:16px"><div class="card" style="margin:0"><h2 class="t">Seleccioná cómo querés abonar</h2><div class="g2" style="margin-top:10px"><div class="opt ${S.m=='card'?'on':''}" id="o1" onclick="setM('card')"><b>Tarjeta de crédito / débito</b><div class="mut sm">Visa, Mastercard, Cabal</div></div><div class="opt ${S.m=='mp'?'on':''}" id="o2" onclick="setM('mp')"><b>Mercado Pago / Dinero en cuenta</b><div class="mut sm">QR o transferencia CVU</div></div></div>
+<div id="cf" ${S.m=='card'?'':'hidden'}><label>Número de tarjeta</label><input id="cn" inputmode="numeric" placeholder="4517 0000 0000 8894" maxlength="19" oninput="this.value=this.value.replace(/\\D/g,'').replace(/(.{4})/g,'$1 ').trim()"><div class="sm mut">Tarjeta terminada en 0000 = pago rechazado (demo).</div>
+<label>Nombre y apellido (como figura en la tarjeta)</label><input id="cm"><div class="g2"><div><label>Vencimiento (MM/AA)</label><input id="cv" placeholder="09/29" maxlength="5"></div><div><label>Código de seguridad (CVV)</label><input id="cc" type="password" maxlength="4" placeholder="•••"></div></div>
+<label>Planes de cuotas</label><select>${[1,3,6].map(n=>`<option>${n} cuota${n>1?'s':''} de ${fm(c/n)} (sin interés)</option>`).join('')}</select></div>
+<div id="mf" class="warn" ${S.m=='mp'?'':'hidden'}>Al confirmar se simulará la redirección a Mercado Pago para completar el pago.</div>
+<div class="jb" style="display:flex;margin-top:16px"><a class="lnk" onclick="go('book')">← Volver a butacas</a><button id="pbtn" class="btn g" onclick="pay()">🔒 Confirmar y pagar ${fm(c)}</button></div></div>
+<div class="card sum" style="margin:0"><h2 class="t">Resumen de la orden</h2>${[['Itinerario',S.q.o.replace('Terminal ','')+' ➜ '+p.svc.dest],['Fecha y hora',fd(dep(S.q.f,p.svc.h))+' · '+p.svc.h+' hs'],['Servicio / coche',p.svc.tipo.split(' (')[0]+' · '+p.svc.coche],['Butacas',p.seats.join(', ')],['Pasajeros',p.pax.map(x=>esc(x.a+', '+x.n)).join('; ')]].map(r=>`<div><span class="mut">${r[0]}:</span><b style="text-align:right">${r[1]}</b></div>`).join('')}
+<div style="border-top:1px solid var(--ln);margin-top:6px"><span class="mut">Tarifa base pasaje:</span><span>${fm(b)}</span></div><div><span class="mut">Tasa de embarque e IVA (10%):</span><span>${fm(c-b)}</span></div><div class="t"><span>Monto final a pagar:</span><span style="color:var(--b)">${fm(c)}</span></div><div class="sm mut" style="margin-top:8px">🛡️ Transacción protegida mediante protocolo SSL / TLS de 256 bits.</div></div></div>`};
+function setM(k){S.m=k;$('#cf').hidden=k!='card';$('#mf').hidden=k!='mp';$('#o1').className='opt'+(k=='card'?' on':'');$('#o2').className='opt'+(k=='mp'?' on':'')}
+function timer(){S.tm=setInterval(()=>{const el=$('#cd');if(!el||!S.pend)return;const s=Math.max(0,Math.round((S.pend.exp-Date.now())/1e3));el.textContent=p2(Math.floor(s/60))+':'+p2(s%60);if(!s){clearInterval(S.tm);S.pend=null;toast('La reserva venció. Realizá una nueva búsqueda.');go('home')}},1000)}
+function pay(){const p=S.pend;if(Date.now()>p.exp){S.pend=null;toast('La reserva venció. Realizá una nueva búsqueda.');return go('home')}let n='';
+if(S.m=='card'){n=$('#cn').value.replace(/\s/g,'');if(!/^\d{16}$/.test(n))return toast('Ingresá los 16 dígitos de la tarjeta');if($('#cm').value.trim().length<3)return toast('Ingresá el nombre como figura en la tarjeta');
+if(!/^(0[1-9]|1[0-2])\/\d{2}$/.test($('#cv').value))return toast('Vencimiento inválido (MM/AA)');if(!/^\d{3,4}$/.test($('#cc').value))return toast('Código de seguridad inválido')}
+const b=$('#pbtn');b.disabled=true;b.textContent='Procesando pago…';
+setTimeout(()=>{if(n.endsWith('0000')){b.disabled=false;b.textContent='🔒 Reintentar pago';return toast('Pago rechazado por la plataforma. Probá con otro medio de pago.')}
+S.last=p.seats.map((st,i)=>{const x=p.pax[i],r={code:'RS-'+(9000+Math.floor(Math.random()*999))+'-'+(x.n[0]+x.a[0]).toUpperCase(),pas:x.a+', '+x.n,dni:x.d,ruta:S.q.o.replace('Terminal ','')+' → '+p.svc.dest,svc:p.svc.id,dep:dep(S.q.f,p.svc.h),seat:st,monto:p.svc.price,est:'confirmada',canal:'Web',own:S.user.email,emit:new Date()};
+R.push(r);SALES.push({f:r.emit,monto:r.monto,ruta:'Retiro → '+p.svc.dest});p.svc.occ.push(st);return r});S.pend=null;S.seats=[];S.f={};toast('¡Pago aprobado! Reserva confirmada.');go('tk')},1200)}
+/* ===== Boleto electrónico ===== */
+const tkt=r=>{const[o,d]=r.ruta.split(' → '),s=SVC.find(x=>x.id==r.svc)||{};return`<div class="tk"><div class="th"><div><b>🚌 RutaSur Transportes</b><div class="sm" style="opacity:.8">Pasaje oficial electrónico · Válido para viajar</div></div><div class="cd"><span class="sm" style="opacity:.8">CÓDIGO DE RESERVA</span><b>${r.code}</b></div></div>
+<div class="okb2">✓ ¡Pago confirmado con éxito! Enviamos una copia a tu correo electrónico.</div>
+<div class="jb" style="display:flex"><div><span>ORIGEN</span><h2>${o}</h2></div><div class="c sm mut">${s.dur||''}<br><b style="color:var(--ok)">Servicio directo</b></div><div class="r"><span>DESTINO</span><h2>${d}</h2></div></div>
+<div class="g4"><div>FECHA DE SALIDA<b>${fd(r.dep)}</b></div><div>HORA DE SALIDA<b>${ft(r.dep)} HS</b></div><div class="hl">BUTACA ASIGNADA<b>N° ${r.seat}</b></div><div>UNIDAD DE FLOTA<b>${s.coche||'—'}</b></div></div>
+<div class="jb" style="display:flex"><div>PASAJERO<b>${esc(r.pas.toUpperCase())}</b></div><div>DOCUMENTO (DNI)<b>${r.dni}</b></div><div>ESTADO<b><span class="tag ${r.est=='confirmada'?'ok':'x'}">${r.est.toUpperCase()}</span></b></div></div>
+<div class="qrb"><div class="qr">${qr(r.code)}</div><div><b>Código QR único de abordaje</b><p>Presentá este código desde la pantalla de tu celular al chofer o personal de abordo al subir al micro. No requiere impresión obligatoria.</p><code>Hash: ${(qr(r.code).length*7919).toString(16)}b099c5123d4</code></div></div></div>`};
+V.tk=()=>{if(!S.last){S.v='res';return V.res()}return`<div class="steps"><span class="d">✓ Búsqueda</span><span class="d">✓ Butacas</span><span class="d">✓ Pago digital</span><span class="n">4 Boleto QR</span></div>${S.last.map(tkt).join('')}
+<div class="row noprint" style="justify-content:center;flex:0"><button class="btn" style="flex:0 0 auto" onclick="print()">⬇ Descargar comprobante PDF</button><button class="btn o" style="flex:0 0 auto" onclick="toast('Reprogramación online disponible hasta 24 hs antes del viaje')">Reprogramar</button><button class="btn o" style="flex:0 0 auto" onclick="go('res')">Gestionar en Mis reservas</button></div>`};
+/* ===== Mis reservas / cancelación ===== */
+const hrs=r=>(r.dep-new Date())/36e5;
+V.res=()=>{const mine=R.filter(r=>r.own=='*'||r.own==S.user.email),T3=[['prox','Próximos viajes','confirmada'],['fin','Historial finalizados','finalizada'],['can','Cancelados','cancelada']],L=mine.filter(r=>r.est==T3.find(t=>t[0]==S.tab)[2]);
+return`<div class="hero"><div><span class="pill">Portal del pasajero</span><h1>Mis reservas y pasajes</h1><p>Consultá itinerarios, reimprimí comprobantes QR y cancelá online.</p></div><div class="pill">${esc(S.user.name)}${S.user.dni?' · DNI '+S.user.dni:''}</div></div>
+<div class="row" style="margin-top:14px;flex:0">${T3.map(t=>`<button class="btn ${S.tab==t[0]?'':'o'}" style="flex:0 0 auto" onclick="S.tab='${t[0]}';render()">${t[1]} (${mine.filter(r=>r.est==t[2]).length})</button>`).join('')}</div>
+${L.map(r=>`<div class="card"><div class="jb sm mut" style="display:flex"><span>Reserva: <b style="color:var(--b)">#${r.code}</b> · Emitido el ${fd(r.emit)} ${ft(r.emit)} hs</span><span class="tag ${r.est=='confirmada'?'ok':r.est=='cancelada'?'x':''}">${{confirmada:'Pago confirmado',finalizada:'Servicio finalizado',cancelada:'Cancelada'}[r.est]}</span></div>
+<div class="row jb" style="margin-top:12px;align-items:center"><div style="flex:2"><b style="font-size:16px">${r.ruta}</b><div class="mut sm">${(SVC.find(x=>x.id==r.svc)||{}).tipo} · Salida ${fd(r.dep)} ${ft(r.dep)} hs</div></div>
+<div><div class="sm mut">Pasajeros y ubicaciones</div><b>${esc(r.pas)}</b> · Butaca ${r.seat}<br><span class="mut sm">Total abonado:</span> <b>${fm(r.monto)}</b>${r.ref?`<br><span class="sm" style="color:var(--ok)">Reembolso: ${fm(r.ref)}</span>`:''}</div>
+<div>${r.est=='confirmada'?`<button class="btn big" style="margin:0 0 8px" onclick="verTk('${r.code}')">Ver boleto QR (PDF)</button><button class="btn r big" style="margin:0" onclick="askCancel('${r.code}')">✕ Cancelar reserva</button>`:r.est=='finalizada'?`<button class="btn o big" style="margin:0" onclick="toast('Factura descargada (simulado)')">⬇ Descargar factura</button>`:''}</div></div></div>`).join('')||'<div class="card c mut">No hay reservas en esta sección.</div>'}
+<div class="warn"><b>Políticas comerciales de cancelación y reembolso (RutaSur):</b><br>• Cancelaciones con más de 48 hs de anticipación a la salida: reintegro del <b>80%</b> del importe total abonado.<br>• Cancelaciones entre 24 y 48 hs antes: reintegro del <b>70%</b>. Con menos de 24 hs no aplican devoluciones.<br>• Al confirmar la cancelación, los asientos asociados se liberan en tiempo real para nuevos usuarios.</div>`};
+function verTk(c){modal(tkt(R.find(r=>r.code==c))+'<div class="row noprint" style="justify-content:center;flex:0"><button class="btn" style="flex:0 0 auto" onclick="print()">⬇ Imprimir / PDF</button><button class="btn o" style="flex:0 0 auto" onclick="closeM()">Cerrar</button></div>')}
+function askCancel(c){const r=R.find(x=>x.code==c),h=hrs(r),pc=h>48?.8:h>=24?.7:0;
+if(h<24)return modal(`<h3>No es posible cancelar</h3><p>La reserva <b>#${c}</b> sale en menos de 24 hs. Con ese plazo ya no se puede cancelar ni se aplican devoluciones.</p><div class="r" style="margin-top:14px"><button class="btn" onclick="closeM()">Entendido</button></div>`);
+modal(`<h3>Cancelar reserva #${c}</h3><p>${r.ruta} · ${fd(r.dep)} ${ft(r.dep)} hs</p><div class="warn">Salida en ${Math.floor(h)} hs → reintegro del <b>${pc*100}%</b>: <b>${fm(r.monto*pc)}</b> de ${fm(r.monto)}.</div><div class="row" style="margin-top:14px;justify-content:flex-end;flex:0"><button class="btn o" style="flex:0 0 auto" onclick="closeM()">Mantener reserva</button><button class="btn r" style="flex:0 0 auto" onclick="doCancel('${c}',${pc})">Confirmar cancelación</button></div>`)}
+function doCancel(c,pc){const r=R.find(x=>x.code==c),s=SVC.find(x=>x.id==r.svc);r.est='cancelada';r.ref=r.monto*pc;if(s)s.occ=s.occ.filter(n=>n!=r.seat);closeM();toast('Reserva cancelada. Butaca liberada. Reembolso: '+fm(r.ref));render()}
+/* ===== Boletería ===== */
+const seatOpts=i=>{const s=SVC[i];return Array.from({length:16},(_,k)=>k+1).filter(n=>!s.occ.includes(n)).map(n=>`<option>${n}</option>`).join('')};
+V.box=()=>{const q=S.bq.trim().toUpperCase(),d=q.replace(/\D/g,''),L=q?R.filter(r=>r.code.includes(q)||(d&&r.dni.replace(/\D/g,'').includes(d))):[],cj=S.caja.reduce((a,c)=>a+c.monto,0);
+return`<div class="card jb" style="display:flex;margin-top:0"><div><b>Operador: ${esc(S.user.name)}</b><div class="mut sm">Boletería N° 04 · Terminal Retiro (turno mañana)</div></div><div><span class="mut sm">Total facturado en caja:</span> <b style="color:var(--ok);font-size:18px">${fm(cj)}</b> <button class="btn d sm" onclick="arqueo()">Arqueo de caja</button></div></div>
+<div class="card"><div class="jb" style="display:flex"><h2 class="t">Búsqueda rápida de reservas para gestión o impresión</h2><span class="mut sm">DNI o código alfanumérico</span></div><div class="row" style="margin-top:10px;flex-wrap:nowrap"><input id="bq" value="${esc(S.bq)}" placeholder="Ej: 38450912 o RS-9438-MP" onkeydown="if(event.key=='Enter')bsearch()"><button class="btn or" style="flex:0 0 140px" onclick="bsearch()">🔍 Buscar pasaje</button></div>
+<div class="ox" style="margin-top:12px"><table class="tbl"><tr><th>Código</th><th>Pasajero / DNI</th><th>Itinerario</th><th>Fecha / salida</th><th>Coche / asiento</th><th>Monto</th><th>Estado</th><th>Acciones</th></tr>
+${L.map(r=>`<tr><td><code>${r.code}</code></td><td><b>${esc(r.pas)}</b><br><span class="mut sm">DNI: ${r.dni}</span></td><td>${r.ruta.replace('(CABA)','')}</td><td>${fd(r.dep)} · ${ft(r.dep)} hs</td><td>${(SVC.find(x=>x.id==r.svc)||{}).coche} · <b>Butaca ${r.seat}</b></td><td><b>${fm(r.monto)}</b></td><td><span class="tag ${r.est=='cancelada'?'x':r.canal=='Web'?'ok':'b'}">${r.est=='cancelada'?'Cancelado':r.canal=='Web'?'Emitido web':'Boletería'}</span></td>
+<td style="white-space:nowrap"><button class="btn o sm" title="Imprimir" onclick="verTk('${r.code}')">🖨</button> <button class="btn o sm" title="Reprogramar" onclick="toast('Reprogramación disponible hasta 24 hs antes de la salida')">🔄</button> ${r.est=='confirmada'?`<button class="btn r sm" title="Anular" onclick="askCancel('${r.code}')">🗑</button>`:''}</td></tr>`).join('')||`<tr><td colspan="8" class="c mut">${q?'No se encontraron pasajes para esa búsqueda.':'Ingresá un DNI o código para buscar.'}</td></tr>`}</table></div></div>
+<div class="card"><h2 class="t">⚡ Emisión express en mostrador (efectivo / Posnet)</h2><div class="g4"><div><label>Ruta inmediata</label><select id="xr" onchange="$('#xs').innerHTML=seatOpts(this.value)">${SVC.map((s,i)=>`<option value="${i}">Retiro → ${s.dest} (${s.h} hs)</option>`).join('')}</select></div><div><label>Butaca directa</label><select id="xs">${seatOpts(0)}</select></div><div><label>Pasajero (apellido y nombre)</label><input id="xn"></div><div><label>DNI</label><input id="xd"></div></div>
+<div class="row" style="margin-top:6px"><div><label>Forma de pago ventanilla</label><select id="xp"><option>Efectivo</option><option>Posnet</option></select></div><button class="btn d" style="flex:0 0 200px" onclick="express()">🖨 Imprimir boleto</button></div></div>`};
+function bsearch(){S.bq=$('#bq').value;if(!S.bq.trim())toast('Ingresá un DNI o código de reserva');render()}
+function express(){const i=+$('#xr').value,s=SVC[i],n=+$('#xs').value,nm=$('#xn').value.trim(),dn=$('#xd').value.trim();if(!nm||!/^[\d.]{6,10}$/.test(dn))return toast('Ingresá apellido y nombre y un DNI válido');
+let d=dep(iso(NOW),s.h);if(d<NOW)d=dep(iso(addD(1)),s.h);const r={code:'RS-'+(7000+Math.floor(Math.random()*999))+'-BO',pas:nm,dni:dn,ruta:'Retiro (CABA) → '+s.dest,svc:s.id,dep:d,seat:n,monto:s.price,est:'confirmada',canal:'Boletería',own:'x',emit:new Date()};
+R.push(r);SALES.push({f:r.emit,monto:r.monto,ruta:'Retiro → '+s.dest});s.occ.push(n);S.caja.push({m:$('#xp').value,monto:r.monto});S.bq=r.code;toast('Boleto emitido y cobrado: '+fm(r.monto));render();verTk(r.code)}
+function arqueo(){const t=m=>S.caja.filter(c=>c.m==m).reduce((a,c)=>a+c.monto,0);modal(`<h3>Arqueo de caja</h3><div class="sum"><div><span>Efectivo</span><b>${fm(t('Efectivo'))}</b></div><div><span>Posnet</span><b>${fm(t('Posnet'))}</b></div><div class="t"><span>Total</span><span>${fm(t('Efectivo')+t('Posnet'))}</span></div></div><div class="r" style="margin-top:14px"><button class="btn" onclick="closeM()">Cerrar</button></div>`)}
+/* ===== Administración ===== */
+V.adm=()=>{const m=SALES.filter(s=>s.f>=addD(-30)).reduce((a,s)=>a+s.monto,0),hoy=SALES.filter(s=>iso(s.f)==iso(NOW)).length,oc=T.reduce((a,t)=>a+t.occ/t.cap,0)/(T.length||1)*100;
+const k=(l,v,s)=>`<div class="card kpi" style="margin:0"><div><span>${l}</span><b>${v}</b><span style="text-transform:none;color:var(--ok)">${s}</span></div></div>`;
+return`<div class="g4">${k('Ventas digitales (30 días)',fm(m),'↗ Meta SMART: +25% reservas digitales')}${k('Ocupación de flota',oc.toFixed(1)+'%',T.length+' servicios programados')}${k('Pasajes emitidos hoy',hoy,'Web y boletería')}${k('Puntualidad de servicios','96.2%','Despachos a horario')}</div>
+<div class="card"><div class="tabs" style="max-width:420px">${[['viajes','Viajes'],['flota','Flota'],['rep','Reportes']].map(([k,n])=>`<a class="${S.aT==k?'on':''}" onclick="S.aT='${k}';render()">${n}</a>`).join('')}</div><div style="margin-top:14px">${AD[S.aT]()}</div></div>`};
+const AD={};
+AD.viajes=()=>`<div class="jb" style="display:flex"><div><h2 class="t">Programación de servicios y control de unidades (ABM)</h2><span class="mut sm">Asignar choferes, unidades y actualizar tarifas.</span></div><button class="btn" onclick="tripForm(-1)">⊕ Programar nuevo viaje</button></div>
+<div class="ox" style="margin-top:10px"><table class="tbl"><tr><th>ID viaje</th><th>Ruta</th><th>Horario</th><th>Unidad asignada</th><th>Ocupación</th><th>Tarifa base</th><th>Estado</th><th>Gestión</th></tr>
+${T.map((t,i)=>`<tr><td><code>${t.id}</code></td><td><b>${t.o.replace(' (CABA)','')} ➜ ${t.d}</b></td><td>${t.dias} · ${t.h} hs</td><td><b>${t.coche}</b><br><span class="mut sm">${(B.find(b=>b.coche==t.coche)||{}).pat||''} · Chofer: ${esc(t.chofer)}</span></td><td><div class="bar2"><i style="width:${t.occ/t.cap*100}%"></i></div><span class="sm">${t.occ}/${t.cap} (${Math.round(t.occ/t.cap*100)}%)</span></td><td><b>${fm(t.tarifa)}</b></td><td><span class="tag ${t.est=='Programado'?'ok':'w'}">${t.est.toUpperCase()}</span></td>
+<td style="white-space:nowrap"><button class="btn o sm" title="Editar" onclick="tripForm(${i})">✎</button> <button class="btn o sm" title="Habilitar / suspender" onclick="T[${i}].est=T[${i}].est=='Programado'?'Suspendido':'Programado';render()">⏯</button></td></tr>`).join('')}</table></div>`;
+function tripForm(i){const t=i<0?{o:ORIG[0].replace('Terminal ',''),d:'Mar del Plata',h:'08:00',dias:'Diario',coche:B[0].coche,chofer:'',tarifa:''}:T[i],op=(a,v)=>a.map(x=>`<option ${x==v?'selected':''}>${x}</option>`).join('');
+modal(`<h3>${i<0?'Programar nuevo viaje':'Editar viaje '+t.id}</h3><div class="g2"><div><label>Origen</label><select id="to">${op(['Retiro (CABA)','Avellaneda'],t.o)}</select></div><div><label>Destino</label><select id="td">${op([...DEST,'Retiro (CABA)'],t.d)}</select></div><div><label>Horario de salida</label><input id="th" type="time" value="${t.h}"></div><div><label>Días</label><input id="tdi" value="${t.dias}"></div>
+<div><label>Colectivo asignado</label><select id="tc">${B.filter(b=>b.est=='Habilitado').map(b=>`<option ${b.coche==t.coche?'selected':''}>${b.coche}</option>`).join('')}</select></div><div><label>Chofer</label><input id="tch" value="${esc(t.chofer)}"></div><div><label>Tarifa base ($)</label><input id="tt" type="number" value="${t.tarifa}"></div></div><div id="err" class="err" hidden></div>
+<div class="row" style="margin-top:14px;justify-content:flex-end;flex:0"><button class="btn o" style="flex:0 0 auto" onclick="closeM()">Cancelar</button><button class="btn" style="flex:0 0 auto" onclick="saveTrip(${i})">Guardar</button></div>`)}
+function saveTrip(i){const v=id=>$('#'+id).value.trim(),er=m=>{$('#err').hidden=false;$('#err').textContent=m},o={o:v('to'),d:v('td'),h:v('th'),dias:v('tdi'),coche:v('tc'),chofer:v('tch'),tarifa:+v('tt')};
+if(!o.h||!o.dias||!o.chofer||!o.coche)return er('Faltan datos obligatorios.');if(o.o==o.d)return er('El origen y el destino no pueden ser iguales.');if(!(o.tarifa>0))return er('El precio ingresado no es válido: debe ser mayor a cero.');
+if(T.some((t,j)=>j!=i&&t.coche==o.coche&&t.h==o.h&&t.est=='Programado'))return er('El colectivo ya tiene otro servicio en ese horario. Elegí otro colectivo u horario.');
+if(i<0){const b=B.find(x=>x.coche==o.coche);T.push({...o,id:'VJ-'+(300+T.length),occ:0,cap:b.cap,est:'Programado'})}else{Object.assign(T[i],o);const s=SVC.find(x=>x.id==T[i].id);if(s)s.price=o.tarifa}
+closeM();toast('Servicio guardado correctamente');render()}
+AD.flota=()=>`<div class="ox"><table class="tbl"><tr><th>Colectivo</th><th>Patente</th><th>Capacidad</th><th>Viajes asignados</th><th>Estado</th><th>Gestión</th></tr>${B.map((b,i)=>`<tr><td><b>${b.coche}</b></td><td>${b.pat}</td><td>${b.cap} butacas</td><td>${T.filter(t=>t.coche==b.coche).length}</td><td><span class="tag ${b.est=='Habilitado'?'ok':'w'}">${b.est}</span></td><td style="white-space:nowrap"><button class="btn o sm" onclick="B[${i}].est=B[${i}].est=='Habilitado'?'Deshabilitado':'Habilitado';render()">⏯</button> <button class="btn r sm" onclick="delBus(${i})">🗑</button></td></tr>`).join('')}</table></div>
+<h2 class="t" style="margin-top:16px">Registrar colectivo</h2><div class="row"><div><label>Nombre</label><input id="bn" placeholder="Coche 120"></div><div><label>Patente</label><input id="bp" placeholder="AF 123 BC"></div><div><label>Capacidad</label><input id="bc" type="number" placeholder="40"></div><button class="btn" style="flex:0 0 120px" onclick="addBus()">Guardar</button></div>`;
+function addBus(){const n=$('#bn').value.trim(),p=$('#bp').value.trim().toUpperCase(),c=+$('#bc').value;if(!n||!p||!(c>0))return toast('Datos incompletos o incorrectos');if(B.some(b=>b.pat==p))return toast('La patente ya está registrada: no se puede duplicar el vehículo');B.push({coche:n,pat:p,cap:c,est:'Habilitado'});toast('Colectivo registrado');render()}
+function delBus(i){if(T.some(t=>t.coche==B[i].coche))return toast('No se puede eliminar: tiene viajes asignados. Podés deshabilitarlo.');B.splice(i,1);toast('Colectivo eliminado');render()}
+AD.rep=()=>`<div class="row" style="flex:0"><div><label>Desde</label><input id="rf" type="date" value="${S.rf||iso(addD(-30))}"></div><div><label>Hasta</label><input id="rh" type="date" value="${S.rh||iso(NOW)}"></div><button class="btn" style="flex:0 0 140px" onclick="S.rf=$('#rf').value;S.rh=$('#rh').value;render()">Consultar</button></div><div id="rr">${rep()}</div>`;
+function rep(){const f=S.rf||iso(addD(-30)),h=S.rh||iso(NOW);if(f>h)return'<div class="err">El período seleccionado no es válido: la fecha inicial es posterior a la final.</div>';
+const L=SALES.filter(s=>iso(s.f)>=f&&iso(s.f)<=h);if(!L.length)return'<div class="ban x">No hay datos para mostrar en el período seleccionado.</div>';const g={};L.forEach(s=>{g[s.ruta]=g[s.ruta]||{n:0,m:0};g[s.ruta].n++;g[s.ruta].m+=s.monto});
+return`<div class="g2" style="margin-top:14px"><div class="card" style="margin:0"><span class="mut sm">Pasajes vendidos</span><b style="font-size:26px;display:block">${L.length}</b></div><div class="card" style="margin:0"><span class="mut sm">Importe recaudado</span><b style="font-size:26px;display:block">${fm(L.reduce((a,s)=>a+s.monto,0))}</b></div></div><div class="ox" style="margin-top:12px"><table class="tbl"><tr><th>Ruta</th><th>Pasajes</th><th>Recaudado</th></tr>${Object.entries(g).map(([k,v])=>`<tr><td>${k}</td><td>${v.n}</td><td><b>${fm(v.m)}</b></td></tr>`).join('')}</table></div>`}
+/* ===== Chofer ===== */
+V.drv=()=>{const ab=M.filter(m=>m.ab).length,pe=M.length-ab,L=M.filter(m=>S.fil=='all'||(S.fil=='ab'?m.ab:!m.ab));
+return`<div class="hero"><div><span class="pill">Control de abordaje y manifiesto de pasajeros</span><h1>Validación de boletos QR · Unidad N° 104</h1><p>Servicio Retiro (CABA) → Mar del Plata · Salida 08:00 hs · Plataforma 16</p></div><div class="pill">Chofer: Roberto Gómez · Legajo OP-418</div></div>
+<div class="g3" style="margin-top:16px"><div class="card kpi" style="margin:0"><div><span>Pasajeros a bordo</span><b style="color:var(--ok)">${ab} <small class="mut" style="font-size:14px">/ ${M.length} butacas</small></b></div></div><div class="card kpi" style="margin:0"><div><span>Pendientes de ascenso</span><b style="color:#d97706">${pe} <small class="mut" style="font-size:14px">pasajeros</small></b></div></div><div class="card kpi" style="margin:0"><div><span>Estado del servicio</span><b style="font-size:17px;color:${S.closed?'var(--rd)':'var(--ok)'}">● ${S.closed?'Embarque cerrado':'Embarque en curso'}</b></div></div></div>
+<div class="card"><div class="row" style="flex-wrap:nowrap"><button class="btn" style="flex:0 0 auto" onclick="scan()">📷 Activar cámara / escanear código QR</button><span style="flex:1"></span><input id="dq" placeholder="Validar por DNI o código…" style="max-width:240px" onkeydown="if(event.key=='Enter')dval()"><button class="btn d" style="flex:0 0 90px" onclick="dval()">Buscar</button></div>${S.msg?`<div class="ban ${S.msg[0]}">${S.msg[1]}</div>`:''}</div>
+<div class="card"><div class="jb" style="display:flex"><h2 class="t">Manifiesto oficial de pasajeros (CNRT)</h2><span class="noprint">Filtro: ${[['all','Todos ('+M.length+')'],['ab','A bordo ('+ab+')'],['pe','Pendientes ('+pe+')']].map(([k,n])=>`<button class="btn ${S.fil==k?'':'o'} sm" onclick="S.fil='${k}';render()">${n}</button>`).join(' ')}</span></div>
+<div class="ox" style="margin-top:10px"><table class="tbl"><tr><th>Butaca</th><th>Apellido y nombre</th><th>DNI</th><th>Reserva</th><th>Servicio</th><th>Estado abordaje</th><th class="noprint">Acción</th></tr>${L.map(m=>`<tr><td><b>${p2(m.b)}</b> <span class="mut sm">${m.piso}</span></td><td><b>${m.n}</b></td><td>${m.dni}</td><td><code>${m.res}</code></td><td>${m.t}</td><td><span class="tag ${m.ab?'ok':'w'}">${m.ab?'✓ A bordo ('+m.ab+' hs)':'Pendiente'}</span></td><td class="noprint">${m.ab?'<span class="mut sm">Validado</span>':`<button class="btn sm" onclick="vali(${M.indexOf(m)})">Validar</button>`}</td></tr>`).join('')}</table></div>
+<div class="jb noprint" style="display:flex;margin-top:12px"><span class="mut sm">Mostrando ${L.length} de ${M.length} registros del servicio oficial.</span><span><button class="btn o" onclick="print()">🖨 Imprimir manifiesto</button> <button class="btn g" onclick="closeEmb()">✓ Cerrar embarque</button></span></div></div>`};
+function vali(i){if(S.closed)return toast('El embarque ya está cerrado');const m=M[i];m.ab=ft(new Date());S.msg=['',`✓ ¡Abordaje validado con éxito! · Butaca ${m.b} (${m.piso}) · ${esc(m.n)} · DNI ${m.dni} · Pasaje ${m.res}`];render()}
+function scan(){const m=M.findIndex(x=>!x.ab);if(m<0)S.msg=['x','Todos los pasajeros ya abordaron.'];else return vali(m);render()}
+function dval(){const q=$('#dq').value.trim().toUpperCase(),d=q.replace(/\D/g,'');if(!q)return toast('Ingresá un DNI o código');const i=M.findIndex(m=>m.res.includes(q)||(d&&m.dni.replace(/\D/g,'')==d));
+if(i<0){S.msg=['x','Pasaje no válido para este servicio: no figura en el manifiesto.'];render()}else if(M[i].ab){S.msg=['x','Este pasaje ya fue validado a las '+M[i].ab+' hs.'];render()}else vali(i)}
+function closeEmb(){const pe=M.filter(m=>!m.ab).length;modal(`<h3>Cerrar embarque</h3><p>${pe?'Quedan '+pe+' pasajero(s) pendientes que figurarán como no presentados.':'Todos los pasajeros abordaron.'}</p><div class="row" style="margin-top:14px;justify-content:flex-end;flex:0"><button class="btn o" style="flex:0 0 auto" onclick="closeM()">Volver</button><button class="btn g" style="flex:0 0 auto" onclick="S.closed=true;closeM();toast('Embarque cerrado');render()">Confirmar cierre</button></div>`)}
+render();
+</script></body></html>
